@@ -1,3 +1,7 @@
+/* =========================================
+   CAMPUSFIND
+   SAGE + DEEP GREEN THEME
+   ========================================= */
 
 * {
     margin: 0;
@@ -11,8 +15,8 @@ html {
 
 body {
     font-family: "Segoe UI", Arial, sans-serif;
-    background: #F6F5F2;
-    color: #39434A;
+    background: #F5F7F3;
+    color: #234236;
     line-height: 1.6;
 }
 
@@ -25,7 +29,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
-    border-bottom: 1px solid #E2E0DA;
+    border-bottom: 1px solid #DDE5DE;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -44,13 +48,13 @@ body {
 }
 
 .brand-text h2 {
-    color: #39434A;
+    color: #234236;
     font-size: 21px;
     line-height: 1.1;
 }
 
 .brand-text p {
-    color: #777B7D;
+    color: #6E7D74;
     font-size: 11px;
 }
 
@@ -61,14 +65,14 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #596268;
+    color: #52655B;
     font-size: 14px;
     transition: 0.3s;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-    color: #C9795B;
+    color: #6F9780;
 }
 
 .nav-actions {
@@ -88,32 +92,32 @@ body {
     border: none;
     background: transparent;
     font-size: 22px;
-    color: #39434A;
+    color: #234236;
 }
 
 .login-btn {
     background: transparent;
-    border: 1px solid #39434A;
-    color: #39434A;
+    border: 1px solid #234236;
+    color: #234236;
     padding: 9px 18px;
     border-radius: 6px;
 }
 
 .register-btn {
     border: none;
-    background: #39434A;
+    background: #234236;
     color: white;
     padding: 10px 18px;
     border-radius: 6px;
 }
 
 .login-btn:hover {
-    background: #39434A;
+    background: #234236;
     color: white;
 }
 
 .register-btn:hover {
-    background: #C9795B;
+    background: #8BAF9A;
 }
 
 /* ================= HERO ================= */
@@ -140,10 +144,10 @@ body {
     inset: 0;
     background: linear-gradient(
         90deg,
-        rgba(246, 245, 242, 0.90) 0%,
-        rgba(246, 245, 242, 0.70) 42%,
-        rgba(246, 245, 242, 0.36) 75%,
-        rgba(246, 245, 242, 0.22) 100%
+        rgba(245, 247, 243, 0.90) 0%,
+        rgba(245, 247, 243, 0.70) 42%,
+        rgba(245, 247, 243, 0.36) 75%,
+        rgba(245, 247, 243, 0.22) 100%
     );
 }
 
@@ -156,7 +160,7 @@ body {
 }
 
 .small-heading {
-    color: #C9795B;
+    color: #6F9780;
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 2px;
@@ -166,19 +170,19 @@ body {
 .hero h1 {
     font-size: clamp(42px, 6vw, 72px);
     line-height: 1.05;
-    color: #39434A;
+    color: #234236;
     max-width: 650px;
 }
 
 .hero h1 span {
     display: block;
-    color: #C9795B;
+    color: #6F9780;
 }
 
 .hero-description {
     margin-top: 20px;
     max-width: 520px;
-    color: #596268;
+    color: #52655B;
     font-size: 16px;
 }
 
@@ -198,24 +202,24 @@ body {
 }
 
 .primary-btn {
-    background: #39434A;
+    background: #234236;
     color: white;
-    border: 1px solid #39434A;
+    border: 1px solid #234236;
 }
 
 .primary-btn:hover {
-    background: #C9795B;
-    border-color: #C9795B;
+    background: #6F9780;
+    border-color: #6F9780;
 }
 
 .secondary-btn {
     background: rgba(255, 255, 255, 0.85);
-    border: 1px solid #39434A;
-    color: #39434A;
+    border: 1px solid #234236;
+    color: #234236;
 }
 
 .secondary-btn:hover {
-    background: #39434A;
+    background: #234236;
     color: white;
 }
 
@@ -232,7 +236,7 @@ body {
 
 .action-card {
     background: white;
-    border: 1px solid #E2E0DA;
+    border: 1px solid #DDE5DE;
     padding: 25px;
     border-radius: 12px;
     display: flex;
@@ -244,16 +248,16 @@ body {
 
 .action-card:hover {
     transform: translateY(-4px);
-    border-color: #C9795B;
-    box-shadow: 0 10px 25px rgba(57, 67, 74, 0.10);
+    border-color: #8BAF9A;
+    box-shadow: 0 10px 25px rgba(35, 66, 54, 0.10);
 }
 
 .action-icon {
     width: 48px;
     height: 48px;
     border-radius: 10px;
-    background: #F2DED6;
-    color: #C9795B;
+    background: #E3ECE5;
+    color: #234236;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -265,17 +269,17 @@ body {
 }
 
 .action-content h3 {
-    color: #39434A;
+    color: #234236;
     font-size: 17px;
 }
 
 .action-content p {
-    color: #777B7D;
+    color: #6E7D74;
     font-size: 13px;
 }
 
 .arrow {
-    color: #C9795B;
+    color: #6F9780;
     font-size: 22px;
 }
 
@@ -291,7 +295,7 @@ body {
 }
 
 .section-heading > p {
-    color: #C9795B;
+    color: #6F9780;
     font-size: 12px;
     letter-spacing: 2px;
 }
@@ -299,13 +303,13 @@ body {
 .section-heading h2 {
     margin-top: 8px;
     font-size: 32px;
-    color: #39434A;
+    color: #234236;
 }
 
 .heading-line {
     width: 45px;
     height: 3px;
-    background: #C9795B;
+    background: #6F9780;
     margin: 15px auto 45px;
 }
 
@@ -322,7 +326,7 @@ body {
 }
 
 .step-number {
-    color: #C9795B;
+    color: #6F9780;
     font-weight: 700;
     font-size: 13px;
 }
@@ -332,26 +336,26 @@ body {
     height: 55px;
     margin: 12px auto;
     border-radius: 50%;
-    background: #F2DED6;
-    color: #C9795B;
+    background: #E3ECE5;
+    color: #234236;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .step h3 {
-    color: #39434A;
+    color: #234236;
 }
 
 .step p {
-    color: #777B7D;
+    color: #6E7D74;
     font-size: 13px;
 }
 
 .step-line {
     height: 1px;
     width: 60px;
-    background: #D8D6D0;
+    background: #D3DDD5;
 }
 
 /* ================= ABOUT ================= */
@@ -369,40 +373,40 @@ body {
 }
 
 .about-label {
-    color: #C9795B;
+    color: #6F9780;
     font-size: 12px;
     letter-spacing: 2px;
 }
 
 .about-content h2 {
     font-size: 36px;
-    color: #39434A;
+    color: #234236;
     margin: 10px 0 18px;
 }
 
 .about-text {
-    color: #777B7D;
+    color: #6E7D74;
 }
 
 .outline-btn {
     margin-top: 25px;
     padding: 11px 20px;
     background: transparent;
-    border: 1px solid #39434A;
-    color: #39434A;
+    border: 1px solid #234236;
+    color: #234236;
     border-radius: 6px;
     cursor: pointer;
 }
 
 .outline-btn:hover {
-    background: #39434A;
+    background: #234236;
     color: white;
 }
 
 .about-decoration {
     width: 250px;
     height: 250px;
-    background: #39434A;
+    background: #234236;
     border-radius: 50%;
     position: relative;
     display: flex;
@@ -416,7 +420,7 @@ body {
 .circle {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid #C9795B;
+    border: 1px solid #8BAF9A;
 }
 
 .circle-one {
@@ -430,7 +434,7 @@ body {
 }
 
 footer {
-    background: #39434A;
+    background: #234236;
     color: white;
     text-align: center;
     padding: 22px;
@@ -489,6 +493,11 @@ footer {
         padding: 8px 10px;
         font-size: 12px;
     }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+}
 
     .hero h1 {
         font-size: 40px;
