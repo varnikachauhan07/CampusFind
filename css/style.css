@@ -20,104 +20,319 @@ body {
     line-height: 1.6;
 }
 
-/* ================= NAVBAR ================= */
+/* =========================
+   NAVIGATION BAR
+========================= */
 
 .navbar {
-    height: 76px;
-    background: #FFFFFF;
+    width: 100%;
+    min-height: 72px;
+    padding: 10px 40px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 5%;
-    border-bottom: 1px solid #DDE5DE;
-    position: sticky;
-    top: 0;
+
+    background: var(--white);
+
+    box-sizing: border-box;
+    gap: 25px;
+
+    position: relative;
     z-index: 1000;
 }
+
+
+/* CampusFind Logo Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Nunito:wght@600;700&display=swap');
+
+
+/* =========================
+   CAMPUSFIND BRAND
+========================= */
 
 .brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0px;
+
+    flex-shrink: 0;
 }
 
-.college-logo {
-    width: 48px;
-    height: 48px;
+
+/* Location / CF Image */
+
+.location-logo {
+    width: 100px;
+    height: 60px;
+
     object-fit: contain;
+    display: block;
 }
 
-.brand-text h2 {
-    color: #234236;
-    font-size: 21px;
-    line-height: 1.1;
+
+/* Text container */
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    line-height: 1;
 }
 
-.brand-text p {
-    color: #6E7D74;
-    font-size: 11px;
+
+/* CampusFind */
+
+.brand-name {
+    text-decoration: none;
+
+    font-family: "Caveat", cursive;
+
+    font-size: 27px;
+    font-weight: 600;
+
+    color: #3b6d32;
+
+    letter-spacing: -0.5px;
+
+    white-space: nowrap;
+
+    transition: 0.25s ease;
 }
+
+
+/* Make "Find" lighter like your logo */
+
+.brand-name span {
+    color: #8ab677;
+}
+
+
+/* GCET */
+
+.brand-college {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 5px;
+
+    font-family: "Nunito", sans-serif;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 4px;
+
+    color: #73a163;
+}
+
+
+
+
+
+
+/* Navigation Links */
 
 .nav-links {
+    flex: 1;
+    min-width: 0;
+
     display: flex;
-    gap: 28px;
+    align-items: center;
+    justify-content: center;
+
+    gap: 26px;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: #52655B;
+
+    color: var(--text);
+
     font-size: 14px;
-    transition: 0.3s;
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    transition: 0.25s ease;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-    color: #6F9780;
+    color: var(--peach);
 }
 
+
+/* Right Side Buttons */
+
 .nav-actions {
+    flex: 0 0 auto;
+
     display: flex;
     align-items: center;
+
     gap: 10px;
 }
 
-.search-icon,
-.login-btn,
-.register-btn {
-    cursor: pointer;
-    font-family: inherit;
-}
+
+/* Search Button */
 
 .search-icon {
+    width: 38px;
+    height: 38px;
+
     border: none;
     background: transparent;
-    font-size: 22px;
-    color: #234236;
+
+    font-size: 23px;
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    border-radius: 50%;
+
+    transition: 0.25s ease;
 }
+
+.search-icon:hover {
+    background: var(--mist);
+}
+
+
+/* Login */
 
 .login-btn {
-    background: transparent;
-    border: 1px solid #234236;
-    color: #234236;
     padding: 9px 18px;
-    border-radius: 6px;
-}
 
-.register-btn {
-    border: none;
-    background: #234236;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    background: var(--white);
+
+    color: var(--text);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
 }
 
 .login-btn:hover {
-    background: #234236;
-    color: white;
+    background: var(--mist);
+}
+
+
+/* Register */
+
+.register-btn {
+    padding: 10px 19px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--olive);
+
+    color: var(--white);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
 }
 
 .register-btn:hover {
-    background: #8BAF9A;
+    opacity: 0.9;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1050px) {
+
+    .navbar {
+        padding: 10px 25px;
+        gap: 15px;
+    }
+
+    .brand {
+        width: 125px;
+    }
+
+    .campusfind-logo {
+        max-width: 125px;
+        height: 43px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .nav-links a {
+        font-size: 13px;
+    }
+
+    .nav-actions {
+        gap: 6px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        min-height: auto;
+
+        padding: 12px 20px;
+
+        flex-wrap: wrap;
+    }
+
+    .brand {
+        width: auto;
+    }
+
+    .campusfind-logo {
+        height: 42px;
+        max-width: 130px;
+    }
+
+    .nav-actions {
+        margin-left: auto;
+    }
+
+    .nav-links {
+        order: 3;
+
+        width: 100%;
+
+        justify-content: flex-start;
+
+        overflow-x: auto;
+
+        padding: 8px 0 3px;
+
+        gap: 22px;
+    }
+
+    .nav-links a {
+        font-size: 13px;
+    }
 }
 
 /* ================= HERO ================= */
@@ -403,42 +618,19 @@ body {
     color: white;
 }
 
-.about-decoration {
-    width: 250px;
-    height: 250px;
-    background: #234236;
-    border-radius: 50%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-}
-
-.circle {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid #8BAF9A;
-}
-
-.circle-one {
-    width: 280px;
-    height: 280px;
-}
-
-.circle-two {
-    width: 310px;
-    height: 310px;
+.page-logo {
+    width: 400px;
+    height: 400px;
+    object-fit: contain;
+    display: block;
 }
 
 footer {
-    background: #234236;
+    background: #305e4d;
     color: white;
     text-align: center;
-    padding: 22px;
-    font-size: 13px;
+    padding: 15px;
+    font-size: 14px;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -502,4 +694,3 @@ footer {
     .hero h1 {
         font-size: 40px;
     }
-}
