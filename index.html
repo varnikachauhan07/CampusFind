@@ -1,104 +1,540 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CampusFind | Lost & Found Portal</title>
+    <title>CampusFind | GCET Lost & Found</title>
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<!-- REPORT ITEM POPUP -->
 
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="logo">CampusFind</div>
+<div class="report-modal" id="reportModal">
 
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Browse Items</a>
-            <a href="#">Report Lost</a>
-            <a href="#">Report Found</a>
-            <a href="#">Login</a>
-        </div>
-    </nav>
+    <div class="report-modal-overlay" id="reportModalOverlay"></div>
 
+    <div class="report-modal-card">
 
-    <!-- Hero Section -->
-    <section class="hero">
+        <button
+            class="report-modal-close"
+            id="closeReportModal"
+            type="button"
+        >
+        </button>
 
-        <div class="hero-content">
-            <h1>Lost Something?<br>Let's Find It.</h1>
-
-            <p>
-                CampusFind helps students and staff report,
-                search and recover lost items within the campus.
-            </p>
-
-            <div class="hero-buttons">
-                <button class="lost-btn">Report Lost Item</button>
-                <button class="found-btn">Report Found Item</button>
-            </div>
+        <div class="report-modal-icon">
+            +
         </div>
 
-    </section>
+        <p class="report-modal-eyebrow">
+            CAMPUSFIND
+        </p>
+
+        <h2>
+            Report an <span>Item</span>
+        </h2>
+
+        <p class="report-modal-text">
+            Tell us what happened so we can help
+            reconnect the item with its owner.
+        </p>
 
 
-    <!-- Search Section -->
-    <section class="search-section">
+        <div class="report-choice-buttons">
 
-        <h2>Find Your Lost Item</h2>
-
-        <div class="search-box">
-            <input
-                type="text"
-                placeholder="Search for an item..."
+            <!-- LOST -->
+            <a
+                href="report-lost.html"
+                class="report-choice lost-choice"
             >
 
-            <button>Search</button>
+                <div class="report-choice-icon">
+                    🔍
+                </div>
+
+                <div class="report-choice-content">
+
+                    <h3>
+                        I Lost Something
+                    </h3>
+
+                    <p>
+                        Report an item you have lost
+                        on campus.
+                    </p>
+
+                </div>
+
+                <span class="report-choice-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- FOUND -->
+            <a
+                href="report-found.html"
+                class="report-choice found-choice"
+            >
+
+                <div class="report-choice-icon">
+                    ✓
+                </div>
+
+                <div class="report-choice-content">
+
+                    <h3>
+                        I Found Something
+                    </h3>
+
+                    <p>
+                        Report an item you found
+                        on campus.
+                    </p>
+
+                </div>
+
+                <span class="report-choice-arrow">
+                    →
+                </span>
+
+            </a>
+
         </div>
 
-    </section>
+
+        <button
+            class="report-modal-cancel"
+            id="cancelReportModal"
+            type="button"
+        >
+            Cancel
+        </button>
+
+    </div>
+
+</div>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+    <!-- Location Logo -->
+    <img 
+        src="./campusfind-logo.png" 
+        alt="CampusFind Location Logo" 
+        class="location-logo"
+        width="100"
+        height="0"
+    >
+
+    <!-- Text beside logo -->
+    <div class="brand-text">
+        <a href="#home" class="brand-name">CampusFind</a>
+        <span class="brand-subtitle">GCET </span>
+    </div>
+
+</div>
 
 
-    <!-- Recently Reported Items -->
-    <section class="items-section">
+        <nav class="nav-links">
 
-        <h2>Recently Reported Items</h2>
+            <a href="#home" class="active">Home</a>
 
-        <div class="items-container">
+            <a href="#browse">Browse Items</a>
 
-            <div class="item-card">
-                <h3>Black Wallet</h3>
-                <p>📍 Library</p>
-                <p>📅 Recently reported</p>
-            </div>
+            <a href="#report">Report</a>
 
-            <div class="item-card">
-                <h3>Blue Water Bottle</h3>
-                <p>📍 Block 1</p>
-                <p>📅 Recently reported</p>
-            </div>
+            <a href="#how-it-works">How It Works</a>
 
-            <div class="item-card">
-                <h3>Student ID Card</h3>
-                <p>📍 Cafeteria</p>
-                <p>📅 Recently reported</p>
-            </div>
+            <a href="#about">About</a>
+
+            <a href="#contact">Contact</a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <button class="search-icon" title="Search">
+                ⌕
+            </button>
+
+            <a href="login.html" class="login-btn">Login</a>
+
+            <a href="register.html" class="register-btn">Register</a>
 
         </div>
 
-    </section>
+    </header>
 
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2026 CampusFind | College Lost & Found Portal</p>
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero" id="home">
+
+            <div class="hero-image"></div>
+
+            <div class="hero-overlay"></div>
+
+
+            <div class="hero-content">
+
+
+                <h1>
+                    Lost something?
+                    <span>Let's find together.</span>
+                </h1>
+
+
+                <p class="hero-description">
+                    CampusFind makes it easier for the GCET community
+                    to report, discover and reunite lost or found items.
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <button class="primary-btn" id="reportItemBtn">
+                        Report an Item
+                        <span>→</span>
+                    </button>
+
+
+                    <button class="secondary-btn" id="browseBtn">
+                        <span>⌕</span>
+                        Browse Items
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="quick-actions" id="browse">
+
+
+            <!-- Browse -->
+
+            <div class="action-card browse-card">
+
+                <div class="action-icon">
+                    ⌕
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Browse Items
+                    </h3>
+
+                    <p>
+                        Find lost or found items across campus.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </div>
+
+
+
+            <!-- Lost -->
+
+            <div class="action-card lost-card">
+
+                <div class="action-icon">
+                    +
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Report Lost Item
+                    </h3>
+
+                    <p>
+                        Tell the campus community what you lost.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </div>
+
+
+
+            <!-- Found -->
+
+            <div class="action-card found-card">
+
+                <div class="action-icon">
+                    ♡
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Report Found Item
+                    </h3>
+
+                    <p>
+                        Help someone get their belongings back.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </div>
+
+
+
+            <!-- Admin -->
+
+            <div class="action-card admin-card">
+
+                <div class="action-icon">
+                    ◉
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Admin Login
+                    </h3>
+
+                    <p>
+                        For authorized staff and coordinators.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= HOW IT WORKS ================= -->
+
+        <section class="how-section" id="how-it-works">
+
+            <div class="section-heading">
+
+                <p>
+                    SIMPLE. QUICK. CAMPUS-WIDE.
+                </p>
+
+                <h2>
+                    How CampusFind Works
+                </h2>
+
+                <div class="heading-line"></div>
+
+            </div>
+
+
+
+            <div class="steps">
+
+
+                <!-- Step 1 -->
+
+                <div class="step">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div class="step-icon">
+                        ✎
+                    </div>
+
+                    <h3>
+                        Report
+                    </h3>
+
+                    <p>
+                        Share details about a lost or found item.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+
+                <!-- Step 2 -->
+
+                <div class="step">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div class="step-icon">
+                        ⌕
+                    </div>
+
+                    <h3>
+                        Search
+                    </h3>
+
+                    <p>
+                        Browse items and look for a possible match.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+
+                <!-- Step 3 -->
+
+                <div class="step">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div class="step-icon">
+                        ♡
+                    </div>
+
+                    <h3>
+                        Connect
+                    </h3>
+
+                    <p>
+                        Submit a claim and connect through the portal.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+
+                <!-- Step 4 -->
+
+                <div class="step">
+
+                    <div class="step-number">
+                        04
+                    </div>
+
+                    <div class="step-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        Reunite
+                    </h3>
+
+                    <p>
+                        Verified items make their way back to their owners.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= ABOUT ================= -->
+
+        <section class="about-section" id="about">
+
+            <div class="about-content">
+
+                <p class="about-label">
+                    ABOUT CAMPUSFIND
+                </p>
+
+
+                <h2>
+                    A simpler way to handle
+                    lost & found items on campus.
+                </h2>
+
+
+                <p class="about-text">
+                    CampusFind is a student-driven platform designed
+                    to make reporting, finding and returning lost
+                    belongings easier within the college community.
+                </p>
+
+
+                <button class="outline-btn">
+                    Learn More →
+                </button>
+
+            </div>
+
+
+            <div class="about-decoration">
+    <img src="./campusf-logo.png" width="180"
+         alt="CampusFind Logo" 
+         class="page-logo">
+</div>
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer id="contact">
+
+        <p>
+            Built by students, for students.
+        </p>
+
     </footer>
 
+
+    <!-- ================= JAVASCRIPT ================= -->
 
     <script src="js/script.js"></script>
 
 </body>
+
 </html>

@@ -1,0 +1,506 @@
+/* =========================
+   LOGIN PAGE
+========================= */
+
+.login-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    background: var(--cream);
+
+    font-family: "Nunito", sans-serif;
+}
+
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.login-intro {
+    width: 48%;
+
+    min-height: 100vh;
+
+    padding: 45px 60px;
+
+    box-sizing: border-box;
+
+    background: var(--mist);
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Brand */
+
+.login-brand {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+}
+
+.login-logo {
+    width: 48px;
+    height: 48px;
+
+    object-fit: contain;
+}
+
+.login-brand-text {
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1;
+}
+
+.login-brand-name {
+    text-decoration: none;
+
+    font-family: "Caveat", cursive;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    color: #40583c;
+}
+
+.login-brand-name span {
+    color: #91a887;
+}
+
+.login-brand-college {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 5px;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 4px;
+
+    color: #71866a;
+}
+
+.login-brand-college span {
+    width: 15px;
+    height: 1px;
+
+    background: #91a887;
+}
+
+.login-brand-text p {
+    margin: 4px 0 0;
+
+    font-family: "Caveat", cursive;
+
+    font-size: 11px;
+
+    color: #71866a;
+}
+
+
+/* Welcome Message */
+
+.login-message {
+    margin-top: auto;
+    margin-bottom: auto;
+
+    max-width: 420px;
+}
+
+.login-small-heading {
+    margin-bottom: 12px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: #71866a;
+}
+
+.login-message h1 {
+    margin: 0;
+
+    font-family: "Caveat", cursive;
+
+    font-size: 76px;
+    line-height: 0.85;
+
+    font-weight: 700;
+
+    color: #40583c;
+}
+
+.login-message h1 span {
+    color: #91a887;
+}
+
+.login-message > p:last-child {
+    margin-top: 25px;
+
+    max-width: 360px;
+
+    font-size: 15px;
+    line-height: 1.7;
+
+    color: var(--text);
+}
+
+
+/* Decorative circles */
+
+.login-intro::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(113, 134, 106, 0.18);
+
+    right: -130px;
+    bottom: -130px;
+}
+
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.login-form-section {
+    width: 52%;
+
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    box-sizing: border-box;
+
+    background: var(--cream);
+}
+
+
+/* Login Card */
+
+.login-card {
+    width: 100%;
+    max-width: 440px;
+
+    padding: 42px;
+
+    box-sizing: border-box;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    box-shadow: 0 15px 40px rgba(64, 88, 60, 0.08);
+}
+
+
+/* Heading */
+
+.login-heading h2 {
+    margin: 0;
+
+    font-family: "Caveat", cursive;
+
+    font-size: 42px;
+
+    color: #40583c;
+}
+
+.login-heading p {
+    margin: 5px 0 30px;
+
+    font-size: 14px;
+
+    color: var(--olive-light);
+}
+
+
+/* Form */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    color: var(--text);
+}
+
+
+/* Password label */
+
+.password-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.password-label label {
+    margin-bottom: 8px;
+}
+
+.forgot-password {
+    font-size: 12px;
+
+    color: #71866a;
+
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+
+/* Inputs */
+
+.form-group input {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: #fffdfb;
+
+    font-family: "Nunito", sans-serif;
+
+    font-size: 13px;
+
+    color: var(--text);
+
+    outline: none;
+
+    transition: 0.25s ease;
+}
+
+.form-group input:focus {
+    border-color: #91a887;
+
+    box-shadow: 0 0 0 3px rgba(145, 168, 135, 0.12);
+}
+
+
+/* Password */
+
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    padding-right: 45px;
+}
+
+.show-password {
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+
+/* Remember */
+
+.remember-row {
+    margin-top: -4px;
+
+    margin-bottom: 22px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 12px;
+
+    color: var(--olive-light);
+
+    cursor: pointer;
+}
+
+.remember input {
+    accent-color: #71866a;
+}
+
+
+/* Login button */
+
+.login-submit {
+    width: 100%;
+
+    padding: 13px 18px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #40583c;
+
+    color: white;
+
+    font-family: "Nunito", sans-serif;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.login-submit span {
+    margin-left: 8px;
+}
+
+.login-submit:hover {
+    background: #314630;
+
+    transform: translateY(-1px);
+}
+
+
+/* Register */
+
+.register-text {
+    margin: 22px 0 0;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    color: var(--olive-light);
+}
+
+.register-text a {
+    color: #40583c;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* Admin */
+
+.admin-login {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+.admin-login span {
+    flex: 1;
+
+    height: 1px;
+
+    background: var(--border);
+}
+
+.admin-login a {
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    color: #71866a;
+}
+
+.admin-login a:hover {
+    color: #40583c;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .login-page {
+        flex-direction: column;
+    }
+
+    .login-intro {
+        width: 100%;
+        min-height: auto;
+
+        padding: 30px 25px 35px;
+    }
+
+    .login-message {
+        margin-top: 50px;
+    }
+
+    .login-message h1 {
+        font-size: 55px;
+    }
+
+    .login-message > p:last-child {
+        margin-top: 18px;
+    }
+
+    .login-form-section {
+        width: 100%;
+        min-height: auto;
+
+        padding: 25px 20px 40px;
+    }
+
+    .login-card {
+        padding: 30px 25px;
+    }
+}

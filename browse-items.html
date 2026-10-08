@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Items | CampusFind</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="browse-navbar">
+
+        <div class="browse-brand">
+
+            <img
+                src="./campusfind-logo.png"
+                alt="CampusFind Logo"
+                class="browse-logo"
+            >
+
+            <div class="browse-brand-text">
+
+                <a href="index.html" class="browse-brand-name">
+                    Campus<span>Find</span>
+                </a>
+
+                <div class="browse-brand-college">
+                    <span></span>
+                    GCET
+                    <span></span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="browse-nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="browse-items.html" class="active">
+                Browse Items
+            </a>
+
+            <a href="report-lost.html">
+                Report
+            </a>
+
+        </nav>
+
+
+        <div class="browse-nav-actions">
+
+            <a href="login.html" class="browse-login">
+                Login
+            </a>
+
+            <a href="register.html" class="browse-register">
+                Register
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- PAGE -->
+    <main class="browse-page">
+
+        <div class="browse-container">
+
+            <!-- HEADING -->
+            <section class="browse-heading">
+
+                <div>
+
+                    <h1>
+                        Browse <span>Items</span>
+                    </h1>
+
+                    <p>
+                        Search through lost and found items reported
+                        by the GCET community.
+                    </p>
+
+                </div>
+
+                <a href="report-lost.html" class="browse-report-btn">
+                    + Report an Item
+                </a>
+
+            </section>
+
+
+            <!-- SEARCH + FILTERS -->
+            <section class="browse-filter-card">
+
+                <div class="browse-search">
+
+                    <span>⌕</span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search by item name or description..."
+                    >
+
+                </div>
+
+
+                <div class="browse-filters">
+
+                    <select id="categoryFilter">
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                        <option value="electronics">
+                            Electronics
+                        </option>
+
+                        <option value="documents">
+                            Documents
+                        </option>
+
+                        <option value="accessories">
+                            Accessories
+                        </option>
+
+                        <option value="books">
+                            Books
+                        </option>
+
+                        <option value="bags">
+                            Bags
+                        </option>
+
+                        <option value="clothing">
+                            Clothing
+                        </option>
+
+                        <option value="keys">
+                            Keys
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+
+                    <select id="locationFilter">
+
+                        <option value="all">
+                            All Locations
+                        </option>
+
+                        <option value="library">
+                            Library
+                        </option>
+
+                        <option value="block-1">
+                            Block E
+                        </option>
+
+                        <option value="block-2">
+                            Block C
+                        </option>
+
+                        <option value="canteen">
+                            Block A
+                        </option>
+
+                        <option value="parking">
+                            Block B
+                        </option>
+
+                        <option value="sports">
+                            Block D
+                        </option>
+
+                        <option value="sports">
+                            Parking Area
+                        </option>
+
+                        <option value="sports">
+                            Fountain Area
+                        </option>
+
+                        <option value="sports">
+                            Sports Ground
+                        </option>
+                        <option value="sports">
+                            Any other location (Please specify in description)
+                        </option>
+
+                    </select>
+
+
+                    <select id="dateFilter">
+
+                        <option value="all">
+                            Any Date
+                        </option>
+
+                        <option value="today">
+                            Today
+                        </option>
+
+                        <option value="week">
+                            This Week
+                        </option>
+
+                        <option value="month">
+                            This Month
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- TABS -->
+            <div class="browse-tabs">
+
+                <button
+                    class="browse-tab active"
+                    data-type="all"
+                >
+                    All Items
+                </button>
+
+                <button
+                    class="browse-tab"
+                    data-type="lost"
+                >
+                    Lost Items
+                </button>
+
+                <button
+                    class="browse-tab"
+                    data-type="found"
+                >
+                    Found Items
+                </button>
+
+            </div>
+
+
+            <!-- RESULTS HEADER -->
+            <div class="browse-results-header">
+
+                <p>
+                    <strong id="itemCount">6</strong>
+                    items reported
+                </p>
+
+                <select id="sortFilter">
+
+                    <option value="newest">
+                        Newest First
+                    </option>
+
+                    <option value="oldest">
+                        Oldest First
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ITEM GRID -->
+            <section class="item-grid" id="itemGrid">
+
+
+                <!-- ITEM 1 -->
+                <article
+                    class="item-card"
+                    data-type="lost"
+                    data-category="electronics"
+                    data-location="library"
+                >
+
+                    <div class="item-image electronics">
+                        💻
+                    </div>
+
+                    <div class="item-content">
+
+                        <div class="item-top">
+
+                            <span class="item-status lost">
+                                Lost
+                            </span>
+
+                            <span class="item-date">
+                                2 days ago
+                            </span>
+
+                        </div>
+
+                        <h3>Black Laptop</h3>
+
+                        <p class="item-description">
+                            Black laptop with a small sticker
+                            near the corner.
+                        </p>
+
+                        <div class="item-meta">
+
+                            <span>📍 Library</span>
+
+                            <span>💻 Electronics</span>
+
+                        </div>
+
+                        <a href="item-details.html" class="view-item">
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ITEM 2 -->
+                <article
+                    class="item-card"
+                    data-type="found"
+                    data-category="accessories"
+                    data-location="canteen"
+                >
+
+                    <div class="item-image accessories">
+                        🎧
+                    </div>
+
+                    <div class="item-content">
+
+                        <div class="item-top">
+
+                            <span class="item-status found">
+                                Found
+                            </span>
+
+                            <span class="item-date">
+                                3 days ago
+                            </span>
+
+                        </div>
+
+                        <h3>Wireless Earbuds</h3>
+
+                        <p class="item-description">
+                            White wireless earbuds found
+                            near the canteen seating area.
+                        </p>
+
+                        <div class="item-meta">
+
+                            <span>📍 Canteen</span>
+
+                            <span>🎧 Accessories</span>
+
+                        </div>
+
+                        <a href="item-details.html" class="view-item">
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ITEM 3 -->
+                <article
+                    class="item-card"
+                    data-type="lost"
+                    data-category="documents"
+                    data-location="block-1"
+                >
+
+                    <div class="item-image documents">
+                        📄
+                    </div>
+
+                    <div class="item-content">
+
+                        <div class="item-top">
+
+                            <span class="item-status lost">
+                                Lost
+                            </span>
+
+                            <span class="item-date">
+                                4 days ago
+                            </span>
+
+                        </div>
+
+                        <h3>College ID Card</h3>
+
+                        <p class="item-description">
+                            GCET student ID card with a blue
+                            lanyard.
+                        </p>
+
+                        <div class="item-meta">
+
+                            <span>📍 Block 1</span>
+
+                            <span>📄 Documents</span>
+
+                        </div>
+
+                        <a href="item-details.html" class="view-item">
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ITEM 4 -->
+                <article
+                    class="item-card"
+                    data-type="found"
+                    data-category="keys"
+                    data-location="parking"
+                >
+
+                    <div class="item-image keys">
+                        🔑
+                    </div>
+
+                    <div class="item-content">
+
+                        <div class="item-top">
+
+                            <span class="item-status found">
+                                Found
+                            </span>
+
+                            <span class="item-date">
+                                5 days ago
+                            </span>
+
+                        </div>
+
+                        <h3>Key Set</h3>
+
+                        <p class="item-description">
+                            Set of two keys attached to a
+                            small metal keyring.
+                        </p>
+
+                        <div class="item-meta">
+
+                            <span>📍 Parking</span>
+
+                            <span>🔑 Keys</span>
+
+                        </div>
+
+                        <a href="item-details.html" class="view-item">
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ITEM 5 -->
+                <article
+                    class="item-card"
+                    data-type="lost"
+                    data-category="bags"
+                    data-location="block-2"
+                >
+
+                    <div class="item-image bags">
+                        🎒
+                    </div>
+
+                    <div class="item-content">
+
+                        <div class="item-top">
+
+                            <span class="item-status lost">
+                                Lost
+                            </span>
+
+                            <span class="item-date">
+                                1 week ago
+                            </span>
+
+                        </div>
+
+                        <h3>Blue Backpack</h3>
+
+                        <p class="item-description">
+                            Navy blue backpack containing
+                            a few notebooks.
+                        </p>
+
+                        <div class="item-meta">
+
+                            <span>📍 Block 2</span>
+
+                            <span>🎒 Bags</span>
+
+                        </div>
+
+                        <a href="item-details.html" class="view-item">
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ITEM 6 -->
+                <article
+                    class="item-card"
+                    data-type="found"
+                    data-category="books"
+                    data-location="sports"
+                >
+
+                    <div class="item-image books">
+                        📚
+                    </div>
+
+                    <div class="item-content">
+
+                        <div class="item-top">
+
+                            <span class="item-status found">
+                                Found
+                            </span>
+
+                            <span class="item-date">
+                                1 week ago
+                            </span>
+
+                        </div>
+
+                        <h3>Engineering Notebook</h3>
+
+                        <p class="item-description">
+                            Green engineering notebook
+                            found near the sports ground.
+                        </p>
+
+                        <div class="item-meta">
+
+                            <span>📍 Sports Ground</span>
+
+                            <span>📚 Books</span>
+
+                        </div>
+
+                        <a href="item-details.html" class="view-item">
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+            </section>
+
+
+            <!-- EMPTY STATE -->
+            <div
+                class="browse-empty"
+                id="emptyState"
+            >
+
+                <div>⌕</div>
+
+                <h3>No items found</h3>
+
+                <p>
+                    Try changing your search or filters.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- TEMPORARY FRONTEND FILTERING -->
+    <script>
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const categoryFilter =
+            document.getElementById("categoryFilter");
+
+        const locationFilter =
+            document.getElementById("locationFilter");
+
+        const tabs =
+            document.querySelectorAll(".browse-tab");
+
+        const cards =
+            document.querySelectorAll(".item-card");
+
+        const emptyState =
+            document.getElementById("emptyState");
+
+        const itemCount =
+            document.getElementById("itemCount");
+
+        let selectedType = "all";
+
+
+        function filterItems() {
+
+            const search =
+                searchInput.value.toLowerCase();
+
+            const category =
+                categoryFilter.value;
+
+            const location =
+                locationFilter.value;
+
+            let visibleCount = 0;
+
+
+            cards.forEach(card => {
+
+                const text =
+                    card.innerText.toLowerCase();
+
+                const cardType =
+                    card.dataset.type;
+
+                const cardCategory =
+                    card.dataset.category;
+
+                const cardLocation =
+                    card.dataset.location;
+
+
+                const matchesSearch =
+                    text.includes(search);
+
+                const matchesType =
+                    selectedType === "all" ||
+                    cardType === selectedType;
+
+                const matchesCategory =
+                    category === "all" ||
+                    cardCategory === category;
+
+                const matchesLocation =
+                    location === "all" ||
+                    cardLocation === location;
+
+
+                if (
+                    matchesSearch &&
+                    matchesType &&
+                    matchesCategory &&
+                    matchesLocation
+                ) {
+
+                    card.style.display = "block";
+
+                    visibleCount++;
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+
+            itemCount.textContent = visibleCount;
+
+            emptyState.style.display =
+                visibleCount === 0 ? "block" : "none";
+
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filterItems
+        );
+
+        categoryFilter.addEventListener(
+            "change",
+            filterItems
+        );
+
+        locationFilter.addEventListener(
+            "change",
+            filterItems
+        );
+
+
+        tabs.forEach(tab => {
+
+            tab.addEventListener("click", function() {
+
+                tabs.forEach(t =>
+                    t.classList.remove("active")
+                );
+
+                this.classList.add("active");
+
+                selectedType =
+                    this.dataset.type;
+
+                filterItems();
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
