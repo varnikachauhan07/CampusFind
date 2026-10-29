@@ -338,6 +338,7 @@ body {
 /* ================= HERO ================= */
 
 .hero {
+    width: 100%;
     min-height: 570px;
     position: relative;
     display: flex;
@@ -348,9 +349,10 @@ body {
 .hero-image {
     position: absolute;
     inset: 0;
-    background-image: url("https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlrBuhZ7AoOdLhjtyruYpNckRlbVU0D63iy43yTjrYR1stYP5vvxQWrS0jV6KXHdTw7CSByN8Lj4Pyhm3S1xzr-65xMduE6FPmOzui7SUeAy8lX8TuJu-FGVDj0rmk69bgkbdRU0w=s680-w680-h510-rw");
+    background-image: url("../gcetim.webp");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     opacity: 0.62;
 }
 
@@ -3582,4 +3584,132 @@ body {
         padding: 12px;
     }
 
+}
+
+/* Claim button on found-item cards */
+.claim-item-btn {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 11px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #2457a7;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.claim-item-btn:hover {
+    background: #173f80;
+}
+
+.claim-item-btn:focus-visible {
+    outline: 3px solid #8bb7ff;
+    outline-offset: 3px;
+}
+
+
+
+.action-card {
+    text-decoration: none;
+    color: inherit;
+}
+
+.action-card h3,
+.action-card p,
+.action-card .arrow {
+    text-decoration: none;
+}
+
+.action-card:hover {
+    text-decoration: none;
+}
+
+/* Claim popup */
+.claim-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(15, 30, 25, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.claim-modal-box {
+    width: 100%;
+    max-width: 460px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 28px;
+    position: relative;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.claim-modal-box h2 {
+    margin: 0 35px 10px 0;
+    color: #214b3b;
+}
+
+.claim-item-name {
+    font-weight: 600;
+    margin-bottom: 22px;
+}
+
+.claim-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    border: none;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #555;
+}
+
+.claim-modal-box label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.claim-modal-box textarea {
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    border: 1px solid #ccd7d0;
+    border-radius: 10px;
+    padding: 12px;
+    font: inherit;
+}
+
+.claim-help {
+    color: #68766e;
+    font-size: 12px;
+}
+
+#claimError {
+    color: #b42318;
+    font-size: 13px;
+}
+
+#submitClaimBtn {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    background: #2857a4;
+    color: white;
+    padding: 12px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#submitClaimBtn:disabled {
+    opacity: 0.65;
+    cursor: wait;
 }

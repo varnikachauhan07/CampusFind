@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,9 +19,7 @@
 
     <!-- NAVBAR -->
     <header class="browse-navbar">
-
         <div class="browse-brand">
-
             <img
                 src="./campusfind-logo.png"
                 alt="CampusFind Logo"
@@ -28,7 +27,6 @@
             >
 
             <div class="browse-brand-text">
-
                 <a href="index.html" class="browse-brand-name">
                     Campus<span>Find</span>
                 </a>
@@ -38,717 +36,711 @@
                     GCET
                     <span></span>
                 </div>
-
             </div>
-
         </div>
-
 
         <nav class="browse-nav-links">
-
             <a href="index.html">Home</a>
-
-            <a href="browse-items.html" class="active">
-                Browse Items
-            </a>
-
-            <a href="report-lost.html">
-                Report
-            </a>
-
+            <a href="browse-items.html" class="active">Browse Items</a>
+            <a href="reportitem.html">Report Lost</a>
+            <a href="reportfound.html">Report Found</a>
         </nav>
 
-
         <div class="browse-nav-actions">
+    <a href="login.html" class="browse-login" id="loginNav">Login</a>
 
-            <a href="login.html" class="browse-login">
-                Login
-            </a>
 
-            <a href="register.html" class="browse-register">
-                Register
-            </a>
+<a href="register.html" class="browse-register" id="registerNav">Register</a>
 
-        </div>
+<a href="profile.html" class="browse-login" id="profileNav" style="display: none;">My Profile</a>
+
+<a href="#" class="browse-register" id="logoutNav" style="display: none;">Logout</a>
+
+
+</div>
 
     </header>
 
-
     <!-- PAGE -->
     <main class="browse-page">
-
         <div class="browse-container">
 
             <!-- HEADING -->
             <section class="browse-heading">
-
                 <div>
-
-                    <h1>
-                        Browse <span>Items</span>
-                    </h1>
-
+                    <h1>Browse <span>Items</span></h1>
                     <p>
                         Search through lost and found items reported
                         by the GCET community.
                     </p>
-
                 </div>
 
-                <a href="report-lost.html" class="browse-report-btn">
+                <a href="reportitem.html" class="browse-report-btn">
                     + Report an Item
                 </a>
-
             </section>
-
 
             <!-- SEARCH + FILTERS -->
             <section class="browse-filter-card">
-
                 <div class="browse-search">
-
                     <span>⌕</span>
-
                     <input
                         type="text"
                         id="searchInput"
                         placeholder="Search by item name or description..."
                     >
-
                 </div>
-
 
                 <div class="browse-filters">
 
-                    <select id="categoryFilter">
-
-                        <option value="all">
-                            All Categories
-                        </option>
-
-                        <option value="electronics">
-                            Electronics
-                        </option>
-
-                        <option value="documents">
-                            Documents
-                        </option>
-
-                        <option value="accessories">
-                            Accessories
-                        </option>
-
-                        <option value="books">
-                            Books
-                        </option>
-
-                        <option value="bags">
-                            Bags
-                        </option>
-
-                        <option value="clothing">
-                            Clothing
-                        </option>
-
-                        <option value="keys">
-                            Keys
-                        </option>
-
-                        <option value="other">
-                            Other
-                        </option>
-
+                    <select id="categoryFilter" aria-label="Filter by category">
+                        <option value="all">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="documents">Documents</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="books">Books</option>
+                        <option value="bags">Bags</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="keys">Keys</option>
+                        <option value="other">Other</option>
                     </select>
 
-
-                    <select id="locationFilter">
-
-                        <option value="all">
-                            All Locations
-                        </option>
-
-                        <option value="library">
-                            Library
-                        </option>
-
-                        <option value="block-1">
-                            Block E
-                        </option>
-
-                        <option value="block-2">
-                            Block C
-                        </option>
-
-                        <option value="canteen">
-                            Block A
-                        </option>
-
-                        <option value="parking">
-                            Block B
-                        </option>
-
-                        <option value="sports">
-                            Block D
-                        </option>
-
-                        <option value="sports">
-                            Parking Area
-                        </option>
-
-                        <option value="sports">
-                            Fountain Area
-                        </option>
-
-                        <option value="sports">
-                            Sports Ground
-                        </option>
-                        <option value="sports">
-                            Any other location (Please specify in description)
-                        </option>
-
+                    <select id="locationFilter" aria-label="Filter by location">
+                        <option value="all">All Locations</option>
+                        <option value="library">Library</option>
+                        <option value="block-1">Block E</option>
+                        <option value="block-2">Block C</option>
+                        <option value="canteen">Block A</option>
+                        <option value="parking">Block B / Parking Area</option>
+                        <option value="block-d">Block D</option>
+                        <option value="sports">Sports Ground</option>
+                        <option value="fountain">Fountain Area</option>
                     </select>
 
-
-                    <select id="dateFilter">
-
-                        <option value="all">
-                            Any Date
-                        </option>
-
-                        <option value="today">
-                            Today
-                        </option>
-
-                        <option value="week">
-                            This Week
-                        </option>
-
-                        <option value="month">
-                            This Month
-                        </option>
-
+                    <select id="dateFilter" aria-label="Filter by date">
+                        <option value="all">Any Date</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
                     </select>
 
                 </div>
-
             </section>
-
 
             <!-- TABS -->
             <div class="browse-tabs">
-
-                <button
-                    class="browse-tab active"
-                    data-type="all"
-                >
+                <button class="browse-tab active" type="button" data-type="all">
                     All Items
                 </button>
 
-                <button
-                    class="browse-tab"
-                    data-type="lost"
-                >
+                <button class="browse-tab" type="button" data-type="lost">
                     Lost Items
                 </button>
 
-                <button
-                    class="browse-tab"
-                    data-type="found"
-                >
+                <button class="browse-tab" type="button" data-type="found">
                     Found Items
                 </button>
-
             </div>
-
 
             <!-- RESULTS HEADER -->
             <div class="browse-results-header">
-
                 <p>
-                    <strong id="itemCount">6</strong>
+                    <strong id="itemCount">0</strong>
                     items reported
                 </p>
 
-                <select id="sortFilter">
-
-                    <option value="newest">
-                        Newest First
-                    </option>
-
-                    <option value="oldest">
-                        Oldest First
-                    </option>
-
+                <select id="sortFilter" aria-label="Sort reports">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
                 </select>
-
             </div>
 
-
-            <!-- ITEM GRID -->
-            <section class="item-grid" id="itemGrid">
-
-
-                <!-- ITEM 1 -->
-                <article
-                    class="item-card"
-                    data-type="lost"
-                    data-category="electronics"
-                    data-location="library"
-                >
-
-                    <div class="item-image electronics">
-                        💻
-                    </div>
-
-                    <div class="item-content">
-
-                        <div class="item-top">
-
-                            <span class="item-status lost">
-                                Lost
-                            </span>
-
-                            <span class="item-date">
-                                2 days ago
-                            </span>
-
-                        </div>
-
-                        <h3>Black Laptop</h3>
-
-                        <p class="item-description">
-                            Black laptop with a small sticker
-                            near the corner.
-                        </p>
-
-                        <div class="item-meta">
-
-                            <span>📍 Library</span>
-
-                            <span>💻 Electronics</span>
-
-                        </div>
-
-                        <a href="item-details.html" class="view-item">
-                            View Details →
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ITEM 2 -->
-                <article
-                    class="item-card"
-                    data-type="found"
-                    data-category="accessories"
-                    data-location="canteen"
-                >
-
-                    <div class="item-image accessories">
-                        🎧
-                    </div>
-
-                    <div class="item-content">
-
-                        <div class="item-top">
-
-                            <span class="item-status found">
-                                Found
-                            </span>
-
-                            <span class="item-date">
-                                3 days ago
-                            </span>
-
-                        </div>
-
-                        <h3>Wireless Earbuds</h3>
-
-                        <p class="item-description">
-                            White wireless earbuds found
-                            near the canteen seating area.
-                        </p>
-
-                        <div class="item-meta">
-
-                            <span>📍 Canteen</span>
-
-                            <span>🎧 Accessories</span>
-
-                        </div>
-
-                        <a href="item-details.html" class="view-item">
-                            View Details →
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ITEM 3 -->
-                <article
-                    class="item-card"
-                    data-type="lost"
-                    data-category="documents"
-                    data-location="block-1"
-                >
-
-                    <div class="item-image documents">
-                        📄
-                    </div>
-
-                    <div class="item-content">
-
-                        <div class="item-top">
-
-                            <span class="item-status lost">
-                                Lost
-                            </span>
-
-                            <span class="item-date">
-                                4 days ago
-                            </span>
-
-                        </div>
-
-                        <h3>College ID Card</h3>
-
-                        <p class="item-description">
-                            GCET student ID card with a blue
-                            lanyard.
-                        </p>
-
-                        <div class="item-meta">
-
-                            <span>📍 Block 1</span>
-
-                            <span>📄 Documents</span>
-
-                        </div>
-
-                        <a href="item-details.html" class="view-item">
-                            View Details →
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ITEM 4 -->
-                <article
-                    class="item-card"
-                    data-type="found"
-                    data-category="keys"
-                    data-location="parking"
-                >
-
-                    <div class="item-image keys">
-                        🔑
-                    </div>
-
-                    <div class="item-content">
-
-                        <div class="item-top">
-
-                            <span class="item-status found">
-                                Found
-                            </span>
-
-                            <span class="item-date">
-                                5 days ago
-                            </span>
-
-                        </div>
-
-                        <h3>Key Set</h3>
-
-                        <p class="item-description">
-                            Set of two keys attached to a
-                            small metal keyring.
-                        </p>
-
-                        <div class="item-meta">
-
-                            <span>📍 Parking</span>
-
-                            <span>🔑 Keys</span>
-
-                        </div>
-
-                        <a href="item-details.html" class="view-item">
-                            View Details →
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ITEM 5 -->
-                <article
-                    class="item-card"
-                    data-type="lost"
-                    data-category="bags"
-                    data-location="block-2"
-                >
-
-                    <div class="item-image bags">
-                        🎒
-                    </div>
-
-                    <div class="item-content">
-
-                        <div class="item-top">
-
-                            <span class="item-status lost">
-                                Lost
-                            </span>
-
-                            <span class="item-date">
-                                1 week ago
-                            </span>
-
-                        </div>
-
-                        <h3>Blue Backpack</h3>
-
-                        <p class="item-description">
-                            Navy blue backpack containing
-                            a few notebooks.
-                        </p>
-
-                        <div class="item-meta">
-
-                            <span>📍 Block 2</span>
-
-                            <span>🎒 Bags</span>
-
-                        </div>
-
-                        <a href="item-details.html" class="view-item">
-                            View Details →
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ITEM 6 -->
-                <article
-                    class="item-card"
-                    data-type="found"
-                    data-category="books"
-                    data-location="sports"
-                >
-
-                    <div class="item-image books">
-                        📚
-                    </div>
-
-                    <div class="item-content">
-
-                        <div class="item-top">
-
-                            <span class="item-status found">
-                                Found
-                            </span>
-
-                            <span class="item-date">
-                                1 week ago
-                            </span>
-
-                        </div>
-
-                        <h3>Engineering Notebook</h3>
-
-                        <p class="item-description">
-                            Green engineering notebook
-                            found near the sports ground.
-                        </p>
-
-                        <div class="item-meta">
-
-                            <span>📍 Sports Ground</span>
-
-                            <span>📚 Books</span>
-
-                        </div>
-
-                        <a href="item-details.html" class="view-item">
-                            View Details →
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-            </section>
-
-
-            <!-- EMPTY STATE -->
-            <div
-                class="browse-empty"
-                id="emptyState"
-            >
-
+            <!-- REAL DATABASE ITEMS WILL APPEAR HERE -->
+            <section class="item-grid" id="itemGrid" aria-live="polite"></section>
+
+            <!-- EMPTY / LOADING MESSAGE -->
+            <div class="browse-empty" id="emptyState">
                 <div>⌕</div>
-
-                <h3>No items found</h3>
-
-                <p>
-                    Try changing your search or filters.
-                </p>
-
+                <h3 id="emptyTitle">Loading reports...</h3>
+                <p id="emptyMessage">Please wait while we retrieve the latest items.</p>
             </div>
-
 
         </div>
-
     </main>
 
-
-    <!-- TEMPORARY FRONTEND FILTERING -->
     <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const API_URL = "http://localhost:5000/api/items";
 
-        const searchInput =
-            document.getElementById("searchInput");
+        const itemGrid = document.getElementById("itemGrid");
+        const searchInput = document.getElementById("searchInput");
+        const categoryFilter = document.getElementById("categoryFilter");
+        const locationFilter = document.getElementById("locationFilter");
+        const dateFilter = document.getElementById("dateFilter");
+        const sortFilter = document.getElementById("sortFilter");
+        const itemCount = document.getElementById("itemCount");
+        const emptyState = document.getElementById("emptyState");
+        const emptyTitle = document.getElementById("emptyTitle");
+        const emptyMessage = document.getElementById("emptyMessage");
 
-        const categoryFilter =
-            document.getElementById("categoryFilter");
+        const categoryIcons = {
+            electronics: "💻",
+            accessories: "🎧",
+            documents: "📄",
+            keys: "🔑",
+            bags: "🎒",
+            books: "📚",
+            clothing: "👕",
+            other: "📦"
+        };
 
-        const locationFilter =
-            document.getElementById("locationFilter");
+        let activeType = "all";
+        let allItems = [];
+        let loadFailed = false;
 
-        const tabs =
-            document.querySelectorAll(".browse-tab");
+        function makeElement(tag, className, text) {
+            const element = document.createElement(tag);
 
-        const cards =
-            document.querySelectorAll(".item-card");
+            if (className) {
+                element.className = className;
+            }
 
-        const emptyState =
-            document.getElementById("emptyState");
+            if (text !== undefined) {
+                element.textContent = text;
+            }
 
-        const itemCount =
-            document.getElementById("itemCount");
+            return element;
+        }
 
-        let selectedType = "all";
+        function normalize(value) {
+            return String(value ?? "").trim().toLowerCase();
+        }
 
+        function getDate(value) {
+            if (!value) return null;
 
-        function filterItems() {
+            // MySQL DATE values commonly arrive as YYYY-MM-DD.
+            const text = String(value);
+            const match = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
 
-            const search =
-                searchInput.value.toLowerCase();
+            if (match) {
+                const date = new Date(
+                    Number(match[1]),
+                    Number(match[2]) - 1,
+                    Number(match[3])
+                );
 
-            const category =
-                categoryFilter.value;
-
-            const location =
-                locationFilter.value;
-
-            let visibleCount = 0;
-
-
-            cards.forEach(card => {
-
-                const text =
-                    card.innerText.toLowerCase();
-
-                const cardType =
-                    card.dataset.type;
-
-                const cardCategory =
-                    card.dataset.category;
-
-                const cardLocation =
-                    card.dataset.location;
-
-
-                const matchesSearch =
-                    text.includes(search);
-
-                const matchesType =
-                    selectedType === "all" ||
-                    cardType === selectedType;
-
-                const matchesCategory =
-                    category === "all" ||
-                    cardCategory === category;
-
-                const matchesLocation =
-                    location === "all" ||
-                    cardLocation === location;
-
-
-                if (
-                    matchesSearch &&
-                    matchesType &&
-                    matchesCategory &&
-                    matchesLocation
-                ) {
-
-                    card.style.display = "block";
-
-                    visibleCount++;
-
-                } else {
-
-                    card.style.display = "none";
-
+                if (!Number.isNaN(date.getTime())) {
+                    return date;
                 }
+            }
 
-            });
+            const date = new Date(value);
+            return Number.isNaN(date.getTime()) ? null : date;
+        }
 
+        function formatAge(value) {
+            const date = getDate(value);
 
-            itemCount.textContent = visibleCount;
+            if (!date) return "Date unavailable";
 
-            emptyState.style.display =
-                visibleCount === 0 ? "block" : "none";
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
 
+            const itemDay = new Date(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate()
+            );
+
+            const days = Math.floor(
+                (today.getTime() - itemDay.getTime()) / 86400000
+            );
+
+            if (days < 0) return "Upcoming date";
+            if (days === 0) return "Today";
+            if (days === 1) return "Yesterday";
+            if (days < 7) return `${days} days ago`;
+            if (days < 14) return "1 week ago";
+
+            return `${Math.floor(days / 7)} weeks ago`;
+        }
+
+        function matchesDateFilter(value) {
+            const selected = dateFilter.value;
+
+            if (selected === "all") return true;
+
+            const date = getDate(value);
+
+            if (!date) return false;
+
+            const now = new Date();
+
+            if (selected === "today") {
+                return date.getFullYear() === now.getFullYear() &&
+                    date.getMonth() === now.getMonth() &&
+                    date.getDate() === now.getDate();
+            }
+
+            if (selected === "week") {
+                const startOfWeek = new Date(now);
+                startOfWeek.setHours(0, 0, 0, 0);
+
+                // Monday is the first day of the week.
+                const day = (startOfWeek.getDay() + 6) % 7;
+                startOfWeek.setDate(startOfWeek.getDate() - day);
+
+                const endOfWeek = new Date(startOfWeek);
+                endOfWeek.setDate(endOfWeek.getDate() + 7);
+
+                return date >= startOfWeek && date < endOfWeek;
+            }
+
+            if (selected === "month") {
+                return date.getFullYear() === now.getFullYear() &&
+                    date.getMonth() === now.getMonth();
+            }
+
+            return true;
+        }
+
+        function createCard(item) {
+            const type = normalize(item.item_type);
+            const category = normalize(item.category) || "other";
+            const location = String(item.location || "Location not specified");
+            const name = String(item.item_name || "Unnamed item");
+            const description = String(
+                item.description || "No description provided."
+            );
+
+            const safeType = type === "found" ? "found" : "lost";
+            const icon = categoryIcons[category] || "📦";
+
+            const card = makeElement("article", "item-card");
+            card.dataset.type = safeType;
+            card.dataset.category = category;
+            card.dataset.location = normalize(location);
+
+            const image = makeElement(
+                "div",
+                `item-image ${category}`,
+                icon
+            );
+
+            const content = makeElement("div", "item-content");
+            const top = makeElement("div", "item-top");
+
+            const status = makeElement(
+                "span",
+                `item-status ${safeType}`,
+                safeType === "found" ? "Found" : "Lost"
+            );
+
+            const date = makeElement(
+    "span",
+    "item-date",
+    item.created_at
+        ? `Reported: ${getDate(item.created_at)?.toLocaleDateString("en-IN") || "Date unavailable"}`
+        : "Date unavailable"
+); 
+
+            top.append(status, date);
+
+            const heading = makeElement("h3", "", name);
+            const desc = makeElement("p", "item-description", description);
+            const meta = makeElement("div", "item-meta");
+
+            meta.append(
+                makeElement("span", "", `📍 ${location}`),
+                makeElement("span", "", `${icon} ${category}`)
+            );
+
+            const link = makeElement("a", "view-item", "View Details →");
+            link.href = `item-details.html?id=${encodeURIComponent(item.item_id)}`;
+
+           content.append(top, heading, desc, meta, link);
+
+// Add a claim button only to found items that are still available.
+const loggedInUser = JSON.parse(
+    sessionStorage.getItem("campusfindUser") || "null"
+);
+
+const isOwnItem =
+    loggedInUser &&
+    Number(loggedInUser.user_id) === Number(item.user_id);
+
+if (!isOwnItem && normalize(item.status) === "active") {
+    const claimButton = makeElement(
+        "button",
+        "claim-item-btn",
+        "Claim This Item"
+    );
+
+    claimButton.type = "button";
+
+    claimButton.addEventListener("click", () => {
+        openClaimForm(item);
+    });
+
+    
+    content.appendChild(claimButton);
+}
+            card.append(image, content);
+
+            return card;
         }
 
 
-        searchInput.addEventListener(
-            "input",
-            filterItems
+function openClaimForm(item) {
+    const savedUser = sessionStorage.getItem("campusfindUser");
+    let user = null;
+
+    try {
+        user = savedUser ? JSON.parse(savedUser) : null;
+    } catch (error) {
+        user = null;
+    }
+
+    if (!user || !user.user_id) {
+        alert("Please log in before claiming an item.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    if (Number(user.user_id) === Number(item.user_id)) {
+        alert("You cannot claim an item you reported yourself.");
+        return;
+    }
+
+    // Create the popup.
+    const existingModal = document.getElementById("claimModal");
+    if (existingModal) existingModal.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "claimModal";
+
+    modal.innerHTML = `
+        <div class="claim-modal-overlay">
+            <div class="claim-modal-box" role="dialog"
+                 aria-modal="true" aria-labelledby="claimModalTitle">
+
+                <button type="button" class="claim-close"
+                        aria-label="Close popup">&times;</button>
+
+                <h2 id="claimModalTitle">Claim This Item</h2>
+
+                <p class="claim-item-name"></p>
+
+                <form id="claimForm">
+                    <label for="claimDescription">
+                        Why does this item belong to you?
+                    </label>
+
+                    <textarea
+                        id="claimDescription"
+                        rows="4"
+                        maxlength="1000"
+                        placeholder="Describe identifying details that aren't shown publicly..."
+                        required
+                    ></textarea>
+
+                    <p class="claim-help">
+                        Please don't include sensitive personal information.
+                    </p>
+
+                    <p id="claimError" role="alert"></p>
+
+                    <button type="submit" id="submitClaimBtn">
+                        Submit Claim
+                    </button>
+                </form>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    modal.querySelector(".claim-item-name").textContent =
+        item.item_name || "Selected item";
+
+    const form = modal.querySelector("#claimForm");
+    const textarea = modal.querySelector("#claimDescription");
+    const submitButton = modal.querySelector("#submitClaimBtn");
+    const errorMessage = modal.querySelector("#claimError");
+
+    function closeModal() {
+        modal.remove();
+    }
+
+    modal.querySelector(".claim-close").addEventListener("click", closeModal);
+
+    modal.querySelector(".claim-modal-overlay").addEventListener(
+        "click",
+        function (event) {
+            if (event.target === this) closeModal();
+        }
+    );
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const description = textarea.value.trim();
+
+        if (!description) {
+            errorMessage.textContent = "Please explain why this item belongs to you.";
+            return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+        errorMessage.textContent = "";
+
+        const success = await submitClaim(
+            item.item_id,
+            user.user_id,
+            description
         );
 
-        categoryFilter.addEventListener(
-            "change",
-            filterItems
-        );
+        if (success) {
+            closeModal();
+            alert("Claim submitted! You can track its status from My Profile.");
+        } else {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Claim";
+        }
+    });
 
-        locationFilter.addEventListener(
-            "change",
-            filterItems
-        );
+    textarea.focus();
+}
 
-
-        tabs.forEach(tab => {
-
-            tab.addEventListener("click", function() {
-
-                tabs.forEach(t =>
-                    t.classList.remove("active")
-                );
-
-                this.classList.add("active");
-
-                selectedType =
-                    this.dataset.type;
-
-                filterItems();
-
-            });
-
+async function submitClaim(itemId, userId, description) {
+    try {
+        const response = await fetch("http://localhost:5000/api/claims", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                item_id: itemId,
+                user_id: userId,
+                claim_description: description
+            })
         });
 
+        const result = await response.json();
+
+        if (!response.ok) {
+            const errorMessage = document.getElementById("claimError");
+
+            if (errorMessage) {
+                errorMessage.textContent =
+                    result.message || "Could not submit your claim.";
+            } else {
+                alert(result.message || "Could not submit your claim.");
+            }
+
+            return false;
+        }
+
+        return true;
+    } catch (error) {
+        console.error("Claim submission error:", error);
+
+        const errorMessage = document.getElementById("claimError");
+
+        if (errorMessage) {
+            errorMessage.textContent =
+                "Unable to connect to the server. Please try again.";
+        } else {
+            alert("Unable to connect to the server. Please try again.");
+        }
+
+        return false;
+    }
+}
+
+
+
+        function showEmptyState(title, message) {
+            emptyTitle.textContent = title;
+            emptyMessage.textContent = message;
+            emptyState.style.display = "block";
+        }
+
+        function renderItems() {
+            const search = normalize(searchInput.value);
+            const category = normalize(categoryFilter.value);
+            const location = normalize(locationFilter.value);
+            const selectedType = activeType;
+
+            let filtered = allItems.filter(item => {
+                const name = normalize(item.item_name);
+                const description = normalize(item.description);
+                const itemCategory = normalize(item.category);
+                const itemLocation = normalize(item.location);
+                const itemType = normalize(item.item_type);
+
+                const matchesSearch =
+                    !search ||
+                    name.includes(search) ||
+                    description.includes(search) ||
+                    itemCategory.includes(search) ||
+                    itemLocation.includes(search);
+
+                const matchesCategory =
+                    category === "all" || itemCategory === category;
+
+                // Location options are keywords; matching is case-insensitive.
+                const matchesLocation =
+                    location === "all" || itemLocation.includes(location);
+
+                const matchesType =
+                    selectedType === "all" || itemType === selectedType;
+
+                const matchesDate = matchesDateFilter(item.item_date);
+
+                return matchesSearch &&
+                    matchesCategory &&
+                    matchesLocation &&
+                    matchesType &&
+                    matchesDate;
+            });
+
+            filtered.sort((a, b) => {
+                const dateA = getDate(a.item_date)?.getTime() || 0;
+                const dateB = getDate(b.item_date)?.getTime() || 0;
+
+                return sortFilter.value === "oldest"
+                    ? dateA - dateB
+                    : dateB - dateA;
+            });
+
+            // Remove the previous cards and render the filtered database results.
+            itemGrid.replaceChildren();
+
+            const fragment = document.createDocumentFragment();
+
+            filtered.forEach(item => {
+                fragment.appendChild(createCard(item));
+            });
+
+            itemGrid.appendChild(fragment);
+            itemCount.textContent = String(filtered.length);
+
+            if (loadFailed) {
+                showEmptyState(
+                    "Unable to load reports",
+                    "Check that the CampusFind backend is running, then refresh this page."
+                );
+            } else if (filtered.length === 0) {
+                showEmptyState(
+                    allItems.length === 0 ? "No reports yet" : "No items found",
+                    allItems.length === 0
+                        ? "No lost or found items have been reported yet."
+                        : "Try changing your search or filters."
+                );
+            } else {
+                emptyState.style.display = "none";
+            }
+        }
+
+        // Lost / Found / All tabs.
+        document.querySelectorAll(".browse-tab").forEach(tab => {
+            tab.addEventListener("click", () => {
+                activeType = tab.dataset.type || "all";
+
+                document.querySelectorAll(".browse-tab").forEach(button => {
+                    button.classList.toggle("active", button === tab);
+                });
+
+                renderItems();
+            });
+        });
+
+        // Search and filter controls.
+        searchInput.addEventListener("input", renderItems);
+        categoryFilter.addEventListener("change", renderItems);
+        locationFilter.addEventListener("change", renderItems);
+        dateFilter.addEventListener("change", renderItems);
+        sortFilter.addEventListener("change", renderItems);
+
+        // Load real reports from the backend.
+        async function loadItems() {
+            showEmptyState(
+                "Loading reports...",
+                "Please wait while we retrieve the latest items."
+            );
+
+            try {
+                const response = await fetch(API_URL, {
+                    cache: "no-store"
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server returned HTTP ${response.status}`);
+                }
+
+                const items = await response.json();
+
+                if (!Array.isArray(items)) {
+                    throw new Error("The items API did not return a list.");
+                }
+
+                allItems = items;
+                loadFailed = false;
+
+                console.log("CampusFind: reports loaded:", allItems.length);
+
+                renderItems();
+            } catch (error) {
+                loadFailed = true;
+                console.error("CampusFind could not load reports:", error);
+
+                itemGrid.replaceChildren();
+                itemCount.textContent = "0";
+
+                showEmptyState(
+                    "Unable to load reports",
+                    "Make sure your backend is running at localhost:5000, then refresh the page."
+                );
+            }
+        }
+
+        loadItems();
+    });
     </script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const loginNav = document.getElementById("loginNav");
+    const registerNav = document.getElementById("registerNav");
+    const profileNav = document.getElementById("profileNav");
+    const logoutNav = document.getElementById("logoutNav");
+
+    let user = null;
+
+    try {
+        user = JSON.parse(sessionStorage.getItem("campusfindUser"));
+    } catch (error) {
+        user = null;
+    }
+
+    const isLoggedIn = Boolean(user && user.user_id);
+
+    loginNav.style.display = isLoggedIn ? "none" : "";
+    registerNav.style.display = isLoggedIn ? "none" : "";
+    profileNav.style.display = isLoggedIn ? "" : "none";
+    logoutNav.style.display = isLoggedIn ? "" : "none";
+
+    logoutNav.addEventListener("click", function (event) {
+        event.preventDefault();
+        sessionStorage.removeItem("campusfindUser");
+        window.location.href = "index.html";
+    });
+});
+</script>
 
 </body>
 </html>
+

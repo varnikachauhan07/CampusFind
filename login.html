@@ -200,17 +200,47 @@
         });
 
 
-        // Temporary Login Behaviour
 
-        const loginForm =
-            document.getElementById("loginForm");
+const loginForm = document.getElementById("loginForm");
 
-        loginForm.addEventListener("submit", function (event) {
+loginForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-            event.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
 
-
+    try {
+        const response = await fetch("http://localhost:5000/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
         });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message || "Login failed. Please try again.");
+            return;
+        }
+
+        // Save user details and JWT token for authenticated requests
+sessionStorage.setItem("campusfindUser", JSON.stringify(data.user));
+sessionStorage.setItem("campusfindToken", data.token);
+
+        alert("Login successful! Welcome, " + data.user.name + "!");
+
+        // Temporary destination until we build the dashboard
+        window.location.href = "dashboard.html";
+
+    } catch (error) {
+        console.error("Login error:", error);
+        alert("Cannot connect to the server. Please try again.");
+    }
+});
+
+
 
     </script>
 

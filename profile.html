@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | CampusFind</title>
+    <link rel="stylesheet" href="css/style.css">
+
+```
+<style>
+    body {
+        background: #f5f7fb;
+    }
+
+    .profile-container {
+        max-width: 1050px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 30px;
+        background: #fff;
+        border: 1px solid #e3e9f2;
+        border-radius: 18px;
+        margin-bottom: 25px;
+    }
+
+    .profile-heading {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .profile-avatar {
+        width: 75px;
+        height: 75px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: #e6efff;
+        color: #2457a7;
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    .profile-header h1 {
+        margin: 0 0 8px;
+        color: #172b4d;
+    }
+
+    .profile-header p {
+        margin: 0;
+        color: #68758a;
+    }
+
+    .profile-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .profile-button {
+        display: inline-block;
+        padding: 11px 17px;
+        border: none;
+        border-radius: 8px;
+        background: #2457a7;
+        color: #fff;
+        text-decoration: none;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    .profile-button:hover {
+        opacity: 0.88;
+    }
+
+    .profile-button.logout {
+        background: #8b4545;
+    }
+
+    .profile-section {
+        padding: 25px;
+        margin-bottom: 25px;
+        background: #fff;
+        border: 1px solid #e3e9f2;
+        border-radius: 16px;
+    }
+
+    .profile-section h2 {
+        margin-top: 0;
+        color: #172b4d;
+        font-size: 21px;
+    }
+
+    .info-grid,
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .info-box,
+    .stat-box {
+        padding: 18px;
+        border-radius: 12px;
+        background: #f5f7fb;
+        overflow-wrap: anywhere;
+    }
+
+    .info-box span {
+        display: block;
+        margin-bottom: 8px;
+        color: #68758a;
+        font-size: 13px;
+    }
+
+    .info-box strong {
+        color: #172b4d;
+    }
+
+    .stat-box strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #2457a7;
+        font-size: 27px;
+    }
+
+    .stat-box span {
+        color: #68758a;
+        font-size: 14px;
+    }
+
+    .activity-list {
+        display: grid;
+        gap: 12px;
+    }
+
+    .activity-card {
+        padding: 17px;
+        border: 1px solid #e3e9f2;
+        border-radius: 11px;
+    }
+
+    .activity-card h3 {
+        margin: 0 0 8px;
+        color: #172b4d;
+        font-size: 17px;
+    }
+
+    .activity-card p {
+        margin: 5px 0;
+        color: #68758a;
+        font-size: 14px;
+    }
+
+    .activity-badge {
+        display: inline-block;
+        margin-bottom: 8px;
+        padding: 5px 9px;
+        border-radius: 20px;
+        background: #e6efff;
+        color: #2457a7;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .empty-message {
+        color: #68758a;
+        line-height: 1.6;
+    }
+
+    .profile-footer {
+        padding: 20px;
+        text-align: center;
+        color: #68758a;
+    }
+
+    @media (max-width: 650px) {
+        .profile-container {
+            margin: 15px auto;
+            padding: 12px;
+        }
+
+        .profile-header {
+            padding: 20px;
+        }
+
+        .profile-heading {
+            align-items: flex-start;
+        }
+
+        .profile-avatar {
+            width: 55px;
+            height: 55px;
+            flex-shrink: 0;
+            font-size: 23px;
+        }
+
+        .info-grid,
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .profile-section {
+            padding: 18px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+    <main class="profile-container">
+
+```
+    <section class="profile-header">
+        <div class="profile-heading">
+            <div class="profile-avatar" id="profileAvatar">S</div>
+
+            <div>
+                <h1 id="profileHeading">My Profile</h1>
+                <p>Your CampusFind account and activity</p>
+            </div>
+        </div>
+
+        
+<div class="profile-actions">
+    <a href="index.html" class="profile-button">← Homepage</a>
+
+    <button type="button" class="profile-button" id="editProfileButton">
+        ✏️ Edit Profile
+    </button>
+
+    <button type="button" class="profile-button logout" id="logoutButton">
+        Logout
+    </button>
+</div>
+
+
+    </section>
+
+    <section class="profile-section">
+        <h2>Personal Information</h2>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <span>Full Name</span>
+                <strong id="profileName">Loading...</strong>
+            </div>
+
+            <div class="info-box">
+                <span>Email Address</span>
+                <strong id="profileEmail">Loading...</strong>
+            </div>
+
+            <div class="info-box">
+                <span>Account Type</span>
+                <strong id="profileRole">Loading...</strong>
+            </div>
+        </div>
+    </section>
+
+    
+<!-- EDIT PROFILE FORM -->
+<section class="profile-section" id="editProfileSection" hidden>
+    <h2>Edit Your Profile</h2>
+
+    <form id="editProfileForm">
+        <div class="form-group">
+            <label for="editName">Full Name</label>
+            <input
+                type="text"
+                id="editName"
+                required
+                maxlength="100"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="editEmail">Email Address</label>
+            <input
+                type="email"
+                id="editEmail"
+                required
+                maxlength="254"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="editPhone">Phone Number</label>
+            <input
+                type="tel"
+                id="editPhone"
+                pattern="[0-9]{10}"
+                maxlength="10"
+                placeholder="Enter your 10-digit number"
+                required
+            >
+        </div>
+
+        <button type="submit" class="profile-button">
+            Save Changes
+        </button>
+
+        <button
+            type="button"
+            class="profile-button logout"
+            id="cancelEditButton"
+        >
+            Cancel
+        </button>
+
+        <p id="editProfileMessage" role="status"></p>
+    </form>
+</section>
+
+
+
+    <section class="profile-section">
+        <h2>My Activity</h2>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <strong id="reportCount">0</strong>
+                <span>Items Reported</span>
+            </div>
+
+            <div class="stat-box">
+                <strong id="claimCount">0</strong>
+                <span>Claims Submitted</span>
+            </div>
+
+            <div class="stat-box">
+                <strong id="receivedCount">0</strong>
+                <span>Claims Received</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile-section">
+        <h2>My Reports</h2>
+        <div class="activity-list" id="myReports">
+            <p class="empty-message">Loading your reports...</p>
+        </div>
+    </section>
+
+    <section class="profile-section">
+        <h2>My Claims</h2>
+        <div class="activity-list" id="myClaims">
+            <p class="empty-message">Loading your claims...</p>
+        </div>
+    </section>
+
+    <section class="profile-section">
+        <h2>Claims Received</h2>
+        <div class="activity-list" id="receivedClaims">
+            <p class="empty-message">Loading claims received...</p>
+        </div>
+    </section>
+
+    <footer class="profile-footer">
+        Built by students, for students.
+    </footer>
+
+</main>
+
+<script>
+    const savedUser = sessionStorage.getItem("campusfindUser");
+
+    if (!savedUser) {
+        alert("Please log in to view your profile.");
+        window.location.href = "login.html";
+    } else {
+        let user;
+
+        try {
+            user = JSON.parse(savedUser);
+        } catch (error) {
+            sessionStorage.removeItem("campusfindUser");
+            alert("Please log in again.");
+            window.location.href = "login.html";
+        }
+
+        if (user && user.user_id) {
+            document.getElementById("profileHeading").textContent =
+                user.name || "My Profile";
+
+            document.getElementById("profileAvatar").textContent =
+                (user.name || "S").trim().charAt(0).toUpperCase();
+
+            document.getElementById("profileName").textContent =
+                user.name || "Not available";
+
+            document.getElementById("profileEmail").textContent =
+                user.email || "Not available";
+
+            document.getElementById("profileRole").textContent =
+                user.role || "Student";
+
+            loadProfileActivity(user.user_id);
+        } else {
+            sessionStorage.removeItem("campusfindUser");
+            window.location.href = "login.html";
+        }
+    }
+
+    document.getElementById("logoutButton").addEventListener("click", function () {
+        sessionStorage.removeItem("campusfindUser");
+        window.location.href = "index.html";
+    });
+
+    async function loadProfileActivity(userId) {
+        try {
+            const response = await fetch("http://localhost:5000/api/items");
+
+            if (!response.ok) {
+                throw new Error("Could not load items.");
+            }
+
+            const items = await response.json();
+
+            const myItems = items.filter(item =>
+                Number(item.user_id) === Number(userId)
+            );
+
+            document.getElementById("reportCount").textContent =
+                myItems.length;
+
+            renderList(
+                "myReports",
+                myItems,
+                "You haven't reported any items yet.",
+                item => `
+                    <span class="activity-badge">${escapeHTML(item.item_type || "Item")}</span>
+                    <h3>${escapeHTML(item.item_name || "Unnamed item")}</h3>
+                    <p><strong>Location:</strong> ${escapeHTML(item.location || "Not specified")}</p>
+                    <p><strong>Status:</strong> ${escapeHTML(item.status || "ACTIVE")}</p>
+                `
+            );
+        } catch (error) {
+            showLoadError("myReports", "Unable to load your reports.");
+            document.getElementById("reportCount").textContent = "—";
+        }
+
+        try {
+           const token = sessionStorage.getItem("campusfindToken");
+
+const response = await fetch("http://localhost:5000/api/claims/my", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
+    
+
+            if (!response.ok) {
+                throw new Error("Could not load claims.");
+            }
+
+            const data = await response.json();
+const claims = data.claims || [];
+
+            document.getElementById("claimCount").textContent =
+                claims.length;
+
+            renderList(
+                "myClaims",
+                claims,
+                "You haven't submitted any claims yet.",
+                claim => `
+                    <h3>${escapeHTML(claim.item_name || "Item claim")}</h3>
+                    <p><strong>Location:</strong> ${escapeHTML(claim.location || "Not specified")}</p>
+                    <p><strong>Claim status:</strong> ${escapeHTML(claim.claim_status || "PENDING")}</p>
+                `
+            );
+        } catch (error) {
+            showLoadError("myClaims", "Unable to load your claims.");
+            document.getElementById("claimCount").textContent = "—";
+        }
+
+        try {
+            const token = sessionStorage.getItem("campusfindToken");
+
+const response = await fetch("http://localhost:5000/api/claims/received", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
+
+            if (!response.ok) {
+                throw new Error("Could not load received claims.");
+            }
+
+            const data = await response.json();
+const claims = data.claims || [];
+
+            document.getElementById("receivedCount").textContent =
+                claims.length;
+
+            renderList(
+                "receivedClaims",
+                claims,
+                "You haven't received any claims on your found items.",
+                claim => `
+                    <h3>${escapeHTML(claim.item_name || "Item claim")}</h3>
+                    <p><strong>Claimant:</strong> ${escapeHTML(claim.claimant_name || "Student")}</p>
+                    <p><strong>Claim status:</strong> ${escapeHTML(claim.claim_status || "PENDING")}</p>
+                `
+            );
+        } catch (error) {
+            showLoadError(
+                "receivedClaims",
+                "Unable to load claims received. Please check your backend."
+            );
+            document.getElementById("receivedCount").textContent = "—";
+        }
+    }
+
+    function renderList(containerId, records, emptyText, getContent) {
+        const container = document.getElementById(containerId);
+        container.replaceChildren();
+
+        if (!Array.isArray(records) || records.length === 0) {
+            const message = document.createElement("p");
+            message.className = "empty-message";
+            message.textContent = emptyText;
+            container.appendChild(message);
+            return;
+        }
+
+        records.forEach(record => {
+            const card = document.createElement("article");
+            card.className = "activity-card";
+            card.innerHTML = getContent(record);
+            container.appendChild(card);
+        });
+    }
+
+    function showLoadError(containerId, message) {
+        const container = document.getElementById(containerId);
+        container.replaceChildren();
+
+        const paragraph = document.createElement("p");
+        paragraph.className = "empty-message";
+        paragraph.textContent = message;
+        container.appendChild(paragraph);
+    }
+
+    function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, character => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[character]);
+    }
+
+   
+// ========================================
+// EDIT PROFILE FUNCTIONALITY
+// ========================================
+
+const editProfileButton = document.getElementById("editProfileButton");
+const editProfileSection = document.getElementById("editProfileSection");
+const editProfileForm = document.getElementById("editProfileForm");
+const cancelEditButton = document.getElementById("cancelEditButton");
+const editProfileMessage = document.getElementById("editProfileMessage");
+
+editProfileButton.addEventListener("click", async function () {
+    const savedUser = sessionStorage.getItem("campusfindUser");
+    const user = savedUser ? JSON.parse(savedUser) : null;
+
+    if (!user) {
+        alert("Please log in again.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    // Show the current profile information in the form.
+    document.getElementById("editName").value = user.name || "";
+    document.getElementById("editEmail").value = user.email || "";
+
+    // Phone number is fetched from the database because it may not
+    // be included in the existing login response.
+    const token = sessionStorage.getItem("campusfindToken");
+
+    try {
+        const response = await fetch(
+            "http://localhost:5000/api/users/profile",
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById("editPhone").value =
+                data.user.phone || "";
+        } else {
+            document.getElementById("editPhone").value = "";
+        }
+    } catch (error) {
+        document.getElementById("editPhone").value = "";
+    }
+
+    editProfileMessage.textContent = "";
+    editProfileSection.hidden = false;
+    editProfileSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+});
+
+cancelEditButton.addEventListener("click", function () {
+    editProfileForm.reset();
+    editProfileMessage.textContent = "";
+    editProfileSection.hidden = true;
+});
+
+editProfileForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const token = sessionStorage.getItem("campusfindToken");
+
+    if (!token) {
+        alert("Your session has expired. Please log in again.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const name = document.getElementById("editName").value.trim();
+    const email = document.getElementById("editEmail").value.trim();
+    const phone = document.getElementById("editPhone").value.trim();
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        editProfileMessage.textContent =
+            "Please enter a valid 10-digit phone number.";
+        return;
+    }
+
+    editProfileMessage.textContent = "Saving changes...";
+
+    try {
+        const response = await fetch(
+            "http://localhost:5000/api/users/profile",
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ name, email, phone })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            editProfileMessage.textContent =
+                data.message || "Unable to update your profile.";
+            return;
+        }
+
+        // Update the saved session with the new information.
+        const updatedUser = {
+            ...JSON.parse(sessionStorage.getItem("campusfindUser")),
+            ...data.user
+        };
+
+        sessionStorage.setItem(
+            "campusfindUser",
+            JSON.stringify(updatedUser)
+        );
+
+        // Refresh the visible profile details.
+        document.getElementById("profileHeading").textContent =
+            updatedUser.name;
+
+        document.getElementById("profileAvatar").textContent =
+            updatedUser.name.trim().charAt(0).toUpperCase();
+
+        document.getElementById("profileName").textContent =
+            updatedUser.name;
+
+        document.getElementById("profileEmail").textContent =
+            updatedUser.email;
+
+        editProfileMessage.textContent =
+            "Profile updated successfully!";
+
+        setTimeout(() => {
+            editProfileSection.hidden = true;
+            editProfileForm.reset();
+        }, 1500);
+
+    } catch (error) {
+        console.error("Profile update error:", error);
+        editProfileMessage.textContent =
+            "Cannot connect to the server. Please try again.";
+    }
+});
+
+
+</script>
+
+
+</body>
+</html>

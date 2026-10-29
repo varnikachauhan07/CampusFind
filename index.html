@@ -47,7 +47,7 @@
 
             <!-- LOST -->
             <a
-                href="report-lost.html"
+                href="reportitem.html"
                 class="report-choice lost-choice"
             >
 
@@ -77,7 +77,7 @@
 
             <!-- FOUND -->
             <a
-                href="report-found.html"
+                href="reportfound.html"
                 class="report-choice found-choice"
             >
 
@@ -149,9 +149,7 @@
 
             <a href="#home" class="active">Home</a>
 
-            <a href="#browse">Browse Items</a>
-
-            <a href="#report">Report</a>
+            <a href="browse-items.html">Browse Items</a>
 
             <a href="#how-it-works">How It Works</a>
 
@@ -164,15 +162,18 @@
 
         <div class="nav-actions">
 
-            <button class="search-icon" title="Search">
-                ⌕
-            </button>
 
-            <a href="login.html" class="login-btn">Login</a>
+<a href="login.html" class="login-btn" id="loginNav">Login</a>
 
-            <a href="register.html" class="register-btn">Register</a>
+<a href="register.html" class="register-btn" id="registerNav">Register</a>
 
-        </div>
+<a href="profile.html" class="login-btn" id="profileNav" style="display: none;">My Profile</a>
+
+<button class="register-btn" id="logoutNav" style="display: none;" type="button">Logout</button>
+
+
+</div>
+
 
     </header>
 
@@ -187,6 +188,7 @@
         <section class="hero" id="home">
 
             <div class="hero-image"></div>
+        
 
             <div class="hero-overlay"></div>
 
@@ -234,12 +236,9 @@
 
             <!-- Browse -->
 
-            <div class="action-card browse-card">
+            <a href="browse-items.html" class="action-card browse-card">
 
-                <div class="action-icon">
-                    ⌕
-                </div>
-
+            
                 <div class="action-content">
 
                     <h3>
@@ -256,13 +255,13 @@
                     →
                 </span>
 
-            </div>
+            </a>
 
 
 
             <!-- Lost -->
 
-            <div class="action-card lost-card">
+            <a href="reportitem.html" class="action-card lost-card">
 
                 <div class="action-icon">
                     +
@@ -284,13 +283,13 @@
                     →
                 </span>
 
-            </div>
+            </a>
 
 
 
             <!-- Found -->
 
-            <div class="action-card found-card">
+            <a href="reportfound.html" class="action-card found-card">
 
                 <div class="action-icon">
                     ♡
@@ -312,13 +311,13 @@
                     →
                 </span>
 
-            </div>
+            </a>
 
 
 
-            <!-- Admin -->
+            <!-- Recently Reported -->
 
-            <div class="action-card admin-card">
+            <a href="browse-items.html" class="action-card admin-card">
 
                 <div class="action-icon">
                     ◉
@@ -327,11 +326,11 @@
                 <div class="action-content">
 
                     <h3>
-                        Admin Login
+                        Recently Reported Items
                     </h3>
 
                     <p>
-                        For authorized staff and coordinators.
+                        Check out the latest lost and found items on campus.
                     </p>
 
                 </div>
@@ -340,7 +339,7 @@
                     →
                 </span>
 
-            </div>
+            </a>
 
         </section>
 

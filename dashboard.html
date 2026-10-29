@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | CampusFind</title>
+    <link rel="stylesheet" href="css/style.css">
+
+```
+<style>
+    .dashboard-container {
+        max-width: 1100px;
+        margin: 50px auto;
+        padding: 25px;
+    }
+
+    .welcome-section {
+        padding: 35px;
+        border-radius: 18px;
+        background: #f3eee5;
+        margin-bottom: 30px;
+    }
+
+    .welcome-section h1 {
+        margin-bottom: 10px;
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .dashboard-card {
+        padding: 25px;
+        border-radius: 15px;
+        background: #fff;
+        border: 1px solid #e8e2d8;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    }
+
+    .dashboard-card h2 {
+        margin-top: 0;
+        font-size: 21px;
+    }
+
+    .dashboard-card p {
+        line-height: 1.6;
+    }
+
+    .dashboard-button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 11px 18px;
+        border-radius: 8px;
+        background: #344e41;
+        color: white;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    .dashboard-button:hover {
+        opacity: 0.88;
+    }
+
+    .logout-button {
+        background: #8b4545;
+    }
+
+    .dashboard-footer {
+        text-align: center;
+        margin-top: 40px;
+        color: #a4ceab;
+    }
+
+    @media (max-width: 650px) {
+        .dashboard-container {
+            margin: 20px auto;
+            padding: 15px;
+        }
+
+        .welcome-section {
+            padding: 25px;
+        }
+
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+    <main class="dashboard-container">
+
+
+    <section class="welcome-section">
+        <h1>Welcome to CampusFind, <span id="userName">Student</span>! 🌿</h1>
+        <p>Your campus lost-and-found space. Let's help lost belongings find their way home.</p>
+        <p><strong>Account type:</strong> <span id="userRole">Student</span></p>
+        <button class="dashboard-button logout-button" id="logoutBtn">Log Out</button>
+    </section>
+
+    <section class="dashboard-grid">
+
+        <article class="dashboard-card">
+            <h2>🔎 Browse Items</h2>
+            <p>Explore items reported lost or found around your campus.</p>
+            <a class="dashboard-button" href="browse-items.html">Browse Items</a>
+        </article>
+
+        <article class="dashboard-card">
+            <h2>📢 Report a Lost Item</h2>
+            <p>Tell the campus community about something you've lost.</p>
+            <a class="dashboard-button" href="reportitem.html">Report Lost</a>
+        </article>
+
+        <article class="dashboard-card">
+            <h2>🎒 Report a Found Item</h2>
+            <p>Help someone recover an item you've found.</p>
+            <a class="dashboard-button" href="reportfound.html">Report Found</a>
+        </article>
+
+        <article class="dashboard-card">
+    <h2>👤 My Profile</h2>
+    <p>View your account details and personal information.</p>
+
+
+<div id="profileDetails">
+    <p><strong>Name:</strong> <span id="profileName">—</span></p>
+    <p><strong>Email:</strong> <span id="profileEmail">—</span></p>
+</div>
+
+<a class="dashboard-button" href="profile.html">
+    Go to Profile &#8594;
+</a>
+
+
+</article>
+
+
+    </section>
+
+   
+<!-- MY SUBMITTED CLAIMS -->
+<section class="dashboard-card" style="margin-top: 25px;">
+    <h2>📩 My Submitted Claims</h2>
+    <div id="myClaimsList">
+        <p>Loading your claims...</p>
+    </div>
+</section>
+
+<!-- CLAIMS RECEIVED -->
+<section class="dashboard-card" style="margin-top: 25px;">
+    <h2>📥 Claims Received</h2>
+    <div id="receivedClaimsList">
+        <p>Loading received claims...</p>
+    </div>
+</section>
+
+
+
+    <footer class="dashboard-footer">
+        <p>Built by students, for students.</p>
+    </footer>
+
+</main>
+
+<script>
+    const savedUser = sessionStorage.getItem("campusfindUser");
+
+    if (!savedUser) {
+        alert("Please log in to access your dashboard.");
+        window.location.href = "login.html";
+    } else {
+     
+    const user = JSON.parse(savedUser);
+
+    document.getElementById("userName").textContent =
+        user.name || "Student";
+
+    document.getElementById("userRole").textContent =
+        user.role || "Student";
+
+    document.getElementById("profileName").textContent =
+        user.name || "—";
+
+    document.getElementById("profileEmail").textContent =
+        user.email || "—";
+}
+
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        sessionStorage.removeItem("campusfindUser");
+sessionStorage.removeItem("campusfindToken");
+        alert("You have been logged out.");
+        window.location.href = "login.html";
+    });
+
+   
+// ========================================
+// LOAD CLAIMS ON THE DASHBOARD
+// ========================================
+
+async function loadClaims(endpoint, containerId, received = false) {
+    const container = document.getElementById(containerId);
+    const token = sessionStorage.getItem("campusfindToken");
+
+    if (!token) {
+        container.textContent = "Please log in again to view claims.";
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `http://localhost:5000/api/claims/${endpoint}`,
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            container.textContent =
+                data.message || "Unable to load claims.";
+            return;
+        }
+
+        const claims = data.claims || [];
+
+        if (claims.length === 0) {
+            container.textContent = received
+                ? "No claims have been received yet."
+                : "You haven't submitted any claims yet.";
+            return;
+        }
+
+        container.replaceChildren();
+
+        claims.forEach(claim => {
+            const card = document.createElement("div");
+            card.style.cssText =
+                "padding:15px; margin:12px 0; border:1px solid #e8e2d8; border-radius:10px;";
+
+            const title = document.createElement("h3");
+            title.textContent = claim.item_name || "Untitled item";
+
+            const status = document.createElement("p");
+            status.textContent = `Claim status: ${claim.claim_status}`;
+
+            const description = document.createElement("p");
+            description.textContent =
+                `Claim details: ${claim.claim_description || "Not provided"}`;
+
+            card.append(title, status, description);
+            // Show contact details for approved or completed claims
+if (["APPROVED", "COMPLETED"].includes(claim.claim_status)) {
+    const contactButton = document.createElement("button");
+
+    contactButton.type = "button";
+    contactButton.className = "dashboard-button";
+    contactButton.textContent = "📞 View Contact Details";
+
+    contactButton.addEventListener("click", () => {
+        loadContactDetails(claim.claim_id, card);
+    });
+
+    card.appendChild(contactButton);
+}
+
+            if (received && claim.claim_status === "PENDING") {
+                const approveButton = document.createElement("button");
+                approveButton.type = "button";
+                approveButton.className = "dashboard-button";
+                approveButton.textContent = "Approve";
+
+                approveButton.addEventListener("click", () => {
+                    reviewClaim(claim.claim_id, "APPROVED");
+                });
+
+                const rejectButton = document.createElement("button");
+                rejectButton.type = "button";
+                rejectButton.className = "dashboard-button logout-button";
+                rejectButton.textContent = "Reject";
+                rejectButton.style.marginLeft = "8px";
+
+                rejectButton.addEventListener("click", () => {
+                    reviewClaim(claim.claim_id, "REJECTED");
+                });
+
+                card.append(approveButton, rejectButton);
+            }
+
+            if (claim.claim_status === "APPROVED") {
+                const confirmation = document.createElement("p");
+                confirmation.textContent =
+                    `Reporter confirmed: ${claim.reporter_confirmed ? "Yes" : "No"} | ` +
+                    `Claimant confirmed: ${claim.claimant_confirmed ? "Yes" : "No"}`;
+
+                card.appendChild(confirmation);
+
+                const confirmButton = document.createElement("button");
+                confirmButton.type = "button";
+                confirmButton.className = "dashboard-button";
+                confirmButton.textContent = "Confirm Handover";
+
+                confirmButton.addEventListener("click", () => {
+                    confirmHandover(claim.claim_id);
+                });
+
+                card.appendChild(confirmButton);
+            }
+
+            container.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Error loading claims:", error);
+        container.textContent =
+            "Cannot connect to the server. Please try again.";
+    }
+}
+
+
+// ========================================
+// APPROVE OR REJECT A CLAIM
+// ========================================
+
+async function reviewClaim(claimId, status) {
+    const token = sessionStorage.getItem("campusfindToken");
+
+    if (!confirm(`Are you sure you want to ${status.toLowerCase()} this claim?`)) {
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `http://localhost:5000/api/claims/${claimId}/status`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ status })
+            }
+        );
+
+        const data = await response.json();
+        alert(data.message || "Request completed.");
+
+        if (response.ok) {
+            await refreshClaims();
+        }
+
+    } catch (error) {
+        console.error("Claim review error:", error);
+        alert("Could not connect to the server.");
+    }
+}
+
+
+// ========================================
+// CONFIRM ITEM HANDOVER
+// ========================================
+
+async function confirmHandover(claimId) {
+    const token = sessionStorage.getItem("campusfindToken");
+
+    if (!confirm("Have you received or handed over this item?")) {
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `http://localhost:5000/api/claims/${claimId}/confirm-handover`,
+            {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        const data = await response.json();
+        alert(data.message || "Request completed.");
+
+        if (response.ok) {
+            await refreshClaims();
+        }
+
+    } catch (error) {
+        console.error("Handover confirmation error:", error);
+        alert("Could not connect to the server.");
+    }
+}
+
+
+// ========================================
+// REFRESH BOTH CLAIM LISTS
+// ========================================
+
+async function refreshClaims() {
+    await Promise.all([
+        loadClaims("my", "myClaimsList"),
+        loadClaims("received", "receivedClaimsList", true)
+    ]);
+}
+
+refreshClaims();
+
+
+// ========================================
+// LOAD PRIVATE CONTACT DETAILS
+// ========================================
+
+async function loadContactDetails(claimId, card) {
+    const token = sessionStorage.getItem("campusfindToken");
+
+    if (!token) {
+        alert("Please log in again to view contact details.");
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `http://localhost:5000/api/claims/${claimId}/contact`,
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message || "Unable to load contact details.");
+            return;
+        }
+
+        // Avoid adding duplicate contact sections.
+        const existing = card.querySelector(".contact-details");
+
+        if (existing) {
+            existing.remove();
+            return;
+        }
+
+        const section = document.createElement("div");
+        section.className = "contact-details";
+        section.style.cssText =
+            "margin-top:15px;padding:15px;background:#f5f8fc;border-radius:8px;";
+
+        function createContactBlock(label, contact) {
+            const block = document.createElement("div");
+            block.style.marginBottom = "12px";
+
+            const heading = document.createElement("h4");
+            heading.textContent = label;
+
+            const name = document.createElement("p");
+            name.textContent = `Name: ${contact.name || "Not available"}`;
+
+            block.append(heading, name);
+
+            if (contact.phone) {
+                const phone = document.createElement("p");
+                phone.textContent = `Phone: ${contact.phone}`;
+
+                const callLink = document.createElement("a");
+                callLink.href = `tel:${contact.phone}`;
+                callLink.textContent = "📞 Call";
+                callLink.style.marginLeft = "10px";
+
+                block.append(phone, callLink);
+            } else {
+                const phone = document.createElement("p");
+                phone.textContent = "Phone: Not provided";
+                block.appendChild(phone);
+            }
+
+            if (contact.email) {
+                const email = document.createElement("p");
+                email.textContent = `Email: ${contact.email}`;
+
+                const emailLink = document.createElement("a");
+                emailLink.href =
+                    `mailto:${contact.email}`;
+                emailLink.textContent = "✉️ Send Email";
+                emailLink.style.marginLeft = "10px";
+
+                block.append(email, emailLink);
+            }
+
+            return block;
+        }
+
+        const heading = document.createElement("h3");
+        heading.textContent = "📞 Contact Details";
+
+        section.appendChild(heading);
+        section.appendChild(
+            createContactBlock("Reporter", data.contacts.reporter)
+        );
+        section.appendChild(
+            createContactBlock("Claimant", data.contacts.claimant)
+        );
+
+        card.appendChild(section);
+
+    } catch (error) {
+        console.error("Contact details error:", error);
+        alert("Cannot connect to the server. Please try again.");
+    }
+}
+
+
+
+// Keep dashboard details synchronized with profile updates
+window.addEventListener("pageshow", function () {
+    const savedUser = sessionStorage.getItem("campusfindUser");
+
+    if (!savedUser) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        const user = JSON.parse(savedUser);
+
+        document.getElementById("userName").textContent =
+            user.name || "Student";
+
+        document.getElementById("userRole").textContent =
+            user.role || "Student";
+
+        document.getElementById("profileName").textContent =
+            user.name || "—";
+
+        document.getElementById("profileEmail").textContent =
+            user.email || "—";
+    } catch (error) {
+        sessionStorage.removeItem("campusfindUser");
+        sessionStorage.removeItem("campusfindToken");
+        window.location.href = "login.html";
+    }
+});
+
+
+
+</script>
+
+
+</body>
+</html>

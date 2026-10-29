@@ -149,6 +149,19 @@
                 </div>
 
 
+                <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="Enter your phone number"
+        pattern="[0-9]{10}"
+        maxlength="10"
+        required
+    >
+</div>
+                
                 <!-- PASSWORD -->
                 <div class="register-form-group">
 
@@ -268,70 +281,54 @@
 
 </main>
 
-
 <script>
+const registerForm = document.getElementById("registerForm");
 
-const password = document.getElementById("password");
-const confirmPassword = document.getElementById("confirmPassword");
+registerForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-const togglePassword =
-    document.getElementById("togglePassword");
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const role = document.getElementById("role").value;
+    
 
-const toggleConfirmPassword =
-    document.getElementById("toggleConfirmPassword");
-
-
-togglePassword.addEventListener("click", function () {
-
-    if (password.type === "password") {
-
-        password.type = "text";
-        togglePassword.textContent = "🙈";
-
-    } else {
-
-        password.type = "password";
-        togglePassword.textContent = "👁";
-
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
     }
 
-});
+    try {
+        const response = await fetch("http://localhost:5000/api/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                phone,
+                password,
+                role
+            })
+        });
 
+        const data = await response.json();
 
-toggleConfirmPassword.addEventListener("click", function () {
-
-    if (confirmPassword.type === "password") {
-
-        confirmPassword.type = "text";
-        toggleConfirmPassword.textContent = "🙈";
-
-    } else {
-
-        confirmPassword.type = "password";
-        toggleConfirmPassword.textContent = "👁";
-
-    }
-
-});
-
-
-document
-    .getElementById("registerForm")
-    .addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-        if (password.value !== confirmPassword.value) {
-
-            alert("Passwords do not match.");
-            return;
-
+        if (response.ok) {
+            alert(data.message);
+            registerForm.reset();
+            window.location.href = "login.html";
+        } else {
+            alert(data.message || "Registration failed.");
         }
-
-        alert("Registration functionality will be connected to the backend soon.");
-
-    });
-
+    } catch (error) {
+        console.error("Registration error:", error);
+        alert("Cannot connect to the server. Please try again.");
+    }
+});
 </script>
 
 </body>

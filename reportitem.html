@@ -310,21 +310,69 @@
 
 
     <script>
+    const lostItemForm = document.getElementById("lostItemForm");
 
-        const lostItemForm =
-            document.getElementById("lostItemForm");
+    lostItemForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
 
-        lostItemForm.addEventListener("submit", function(event) {
+        const savedUser = sessionStorage.getItem("campusfindUser");
 
-            event.preventDefault();
+        if (!savedUser) {
+            alert("Please log in before reporting a lost item.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        const user = JSON.parse(savedUser);
+
+        const report = {
+            user_id: user.user_id,
+            item_type: "lost",
+            item_name: document.getElementById("itemName").value.trim(),
+            category: document.getElementById("category").value,
+            location: document.getElementById("location").value.trim(),
+            description:
+                document.getElementById("description").value.trim() +
+                (
+                    document.getElementById("additionalDetails").value.trim()
+                        ? "\nAdditional details: " +
+                          document.getElementById("additionalDetails").value.trim()
+                        : ""
+                ),
+            item_date: document.getElementById("lostDate").value
+        };
+
+        try {
+            const response = await fetch("http://localhost:5000/api/items", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(report)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.message || "Could not submit your report.");
+                return;
+            }
 
             alert(
-                "Your lost item report will be connected to the backend soon."
-            );
+    "🎉 Lost Item Report Submitted Successfully!\n\n" +
+    "Your report has been saved to CampusFind.\n" +
+    "Report ID: " + data.item_id + "\n\n" +
+    "You can now return to your dashboard or browse items."
+);
 
-        });
+lostItemForm.reset();
+        } catch (error) {
+            console.error("Report submission error:", error);
+            alert("Could not connect to the server. Please check that your backend is running.");
+        }
+    });
+</script>
 
-    </script>
 
 </body>
 

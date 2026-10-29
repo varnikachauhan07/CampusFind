@@ -77,8 +77,6 @@ actionCards.forEach(function (card) {
         const title =
             card.querySelector("h3").textContent;
 
-        alert(title + " section will be available soon.");
-
     });
 
 });
@@ -206,3 +204,38 @@ if (reportItemBtn && reportModal) {
     });
 
 }
+
+// Update navbar according to login status
+document.addEventListener("DOMContentLoaded", function () {
+const loginNav = document.getElementById("loginNav");
+const registerNav = document.getElementById("registerNav");
+const profileNav = document.getElementById("profileNav");
+const logoutNav = document.getElementById("logoutNav");
+
+function updateNavbar() {
+    const savedUser = sessionStorage.getItem("campusfindUser");
+    let user = null;
+
+    try {
+        user = savedUser ? JSON.parse(savedUser) : null;
+    } catch (error) {
+        user = null;
+    }
+
+    const isLoggedIn = Boolean(user && user.user_id);
+
+    loginNav.style.display = isLoggedIn ? "none" : "";
+    registerNav.style.display = isLoggedIn ? "none" : "";
+    profileNav.style.display = isLoggedIn ? "" : "none";
+    logoutNav.style.display = isLoggedIn ? "" : "none";
+}
+
+logoutNav.addEventListener("click", function () {
+    sessionStorage.removeItem("campusfindUser");
+    window.location.href = "index.html";
+});
+
+updateNavbar();
+
+
+});
