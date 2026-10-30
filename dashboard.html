@@ -217,7 +217,7 @@ async function loadClaims(endpoint, containerId, received = false) {
 
     try {
         const response = await fetch(
-            `http://localhost:5000/api/claims/${endpoint}`,
+            `https://campusfind-3ggv.onrender.com/api/claims/${endpoint}`,
             {
                 method: "GET",
                 headers: {
@@ -343,7 +343,7 @@ async function reviewClaim(claimId, status) {
 
     try {
         const response = await fetch(
-            `http://localhost:5000/api/claims/${claimId}/status`,
+            `https://campusfind-3ggv.onrender.com/api/claims/${claimId}/status`,
             {
                 method: "PUT",
                 headers: {
@@ -381,7 +381,7 @@ async function confirmHandover(claimId) {
 
     try {
         const response = await fetch(
-            `http://localhost:5000/api/claims/${claimId}/confirm-handover`,
+            `https://campusfind-3ggv.onrender.com/api/claims/${claimId}/confirm-handover`,
             {
                 method: "PUT",
                 headers: {
@@ -432,7 +432,7 @@ async function loadContactDetails(claimId, card) {
 
     try {
         const response = await fetch(
-            `http://localhost:5000/api/claims/${claimId}/contact`,
+            `https://campusfind-3ggv.onrender.com/api/claims/${claimId}/contact`,
             {
                 method: "GET",
                 headers: {

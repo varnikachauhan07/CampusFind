@@ -420,7 +420,7 @@
 
     async function loadProfileActivity(userId) {
         try {
-            const response = await fetch("http://localhost:5000/api/items");
+            const response = await fetch("https://campusfind-3ggv.onrender.com/api/items");
 
             if (!response.ok) {
                 throw new Error("Could not load items.");
@@ -454,7 +454,8 @@
         try {
            const token = sessionStorage.getItem("campusfindToken");
 
-const response = await fetch("http://localhost:5000/api/claims/my", {
+
+            const response = await fetch("https://campusfind-3ggv.onrender.com/api/claims", {
     headers: {
         "Authorization": `Bearer ${token}`
     }
@@ -489,7 +490,7 @@ const claims = data.claims || [];
         try {
             const token = sessionStorage.getItem("campusfindToken");
 
-const response = await fetch("http://localhost:5000/api/claims/received", {
+const response = await fetch("https://campusfind-3ggv.onrender.com/api/claims/received", {
     headers: {
         "Authorization": `Bearer ${token}`
     }
@@ -595,7 +596,7 @@ editProfileButton.addEventListener("click", async function () {
 
     try {
         const response = await fetch(
-            "http://localhost:5000/api/users/profile",
+            "https://campusfind-3ggv.onrender.com/api/users/profile",
             {
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -653,7 +654,7 @@ editProfileForm.addEventListener("submit", async function (event) {
 
     try {
         const response = await fetch(
-            "http://localhost:5000/api/users/profile",
+            "https://campusfind-3ggv.onrender.com/api/users/profile",
             {
                 method: "PUT",
                 headers: {
