@@ -234,7 +234,7 @@ async function loadClaims(endpoint, containerId, received = false) {
             return;
         }
 
-        const claims = data.claims || [];
+        const claims = Array.isArray(data) ? data : (data.claims || []);
 
         if (claims.length === 0) {
             container.textContent = received
@@ -409,11 +409,40 @@ async function confirmHandover(claimId) {
 // ========================================
 
 async function refreshClaims() {
-    await Promise.all([
-        loadClaims("my", "myClaimsList"),
-        loadClaims("received", "receivedClaimsList", true)
-    ]);
+const savedUser = sessionStorage.getItem("campusfindUser");
+
+
+if (!savedUser) {
+    return;
 }
+
+let user;
+
+try {
+    user = JSON.parse(savedUser);
+} catch (error) {
+    console.error("Could not read saved user:", error);
+    return;
+}
+
+if (!user.user_id) {
+    document.getElementById("receivedClaimsList").textContent =
+        "Your user ID is missing. Please log in again.";
+
+    document.getElementById("myClaimsList").textContent =
+        "Your user ID is missing. Please log in again.";
+
+    return;
+}
+
+await Promise.all([
+    loadClaims("my", "myClaimsList"),
+    loadClaims(`received/${encodeURIComponent(user.user_id)}`, "receivedClaimsList", true)
+]);
+
+
+}
+
 
 refreshClaims();
 
