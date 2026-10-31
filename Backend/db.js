@@ -10,9 +10,9 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     ssl: {
-        ca: process.env.DB_SSL_CA,
-        rejectUnauthorized: true
-    }
+    ca: process.env.DB_SSL_CA?.replace(/\\n/g, "\n"),
+    rejectUnauthorized: true
+}
 });
 
 db.connect((err) => {
