@@ -372,55 +372,73 @@
     </footer>
 
 </main>
-
 <script>
+    // ========================================
+    // LOAD SAVED USER AND PROFILE DETAILS
+    // ========================================
+
     const savedUser = sessionStorage.getItem("campusfindUser");
+    let currentUser = null;
 
     if (!savedUser) {
         alert("Please log in to view your profile.");
         window.location.href = "login.html";
     } else {
-        let user;
-
         try {
-            user = JSON.parse(savedUser);
+            currentUser = JSON.parse(savedUser);
+
+            if (!currentUser || !currentUser.user_id) {
+                throw new Error("Invalid user information.");
+            }
+
+            document.getElementById("profileHeading").textContent =
+                currentUser.name || "My Profile";
+
+            document.getElementById("profileAvatar").textContent =
+                (currentUser.name || "S").trim().charAt(0).toUpperCase();
+
+            document.getElementById("profileName").textContent =
+                currentUser.name || "Not available";
+
+            document.getElementById("profileEmail").textContent =
+                currentUser.email || "Not available";
+
+            document.getElementById("profileRole").textContent =
+                currentUser.role || "Student";
+
+            loadProfileActivity(currentUser.user_id);
+
         } catch (error) {
             sessionStorage.removeItem("campusfindUser");
             alert("Please log in again.");
             window.location.href = "login.html";
         }
-
-        if (user && user.user_id) {
-            document.getElementById("profileHeading").textContent =
-                user.name || "My Profile";
-
-            document.getElementById("profileAvatar").textContent =
-                (user.name || "S").trim().charAt(0).toUpperCase();
-
-            document.getElementById("profileName").textContent =
-                user.name || "Not available";
-
-            document.getElementById("profileEmail").textContent =
-                user.email || "Not available";
-
-            document.getElementById("profileRole").textContent =
-                user.role || "Student";
-
-            loadProfileActivity(user.user_id);
-        } else {
-            sessionStorage.removeItem("campusfindUser");
-            window.location.href = "login.html";
-        }
     }
+
+    // ========================================
+    // LOG OUT
+    // ========================================
 
     document.getElementById("logoutButton").addEventListener("click", function () {
         sessionStorage.removeItem("campusfindUser");
-        window.location.href = "index.html";
+        sessionStorage.removeItem("campusfindToken");
+        window.location.href = "login.html";
     });
 
+    // ========================================
+    // LOAD REPORTED ITEMS AND CLAIMS
+    // ========================================
+
     async function loadProfileActivity(userId) {
+
+        // ----------------------------------------
+        // LOAD ITEMS REPORTED BY THIS USER
+        // ----------------------------------------
+
         try {
-            const response = await fetch("https://campusfind-3ggv.onrender.com/api/items");
+            const response = await fetch(
+                "https://campusfind-3ggv.onrender.com/api/items"
+            );
 
             if (!response.ok) {
                 throw new Error("Could not load items.");
@@ -446,28 +464,45 @@
                     <p><strong>Status:</strong> ${escapeHTML(item.status || "ACTIVE")}</p>
                 `
             );
+
         } catch (error) {
+            console.error("Profile: Reports error:", error);
+
             showLoadError("myReports", "Unable to load your reports.");
+
             document.getElementById("reportCount").textContent = "—";
         }
 
+        // ----------------------------------------
+        // LOAD MY SUBMITTED CLAIMS
+        // ----------------------------------------
+
         try {
-           const token = sessionStorage.getItem("campusfindToken");
+            const token = sessionStorage.getItem("campusfindToken");
 
-
-            const response = await fetch("https://campusfind-3ggv.onrender.com/api/claims", {
-    headers: {
-        "Authorization": `Bearer ${token}`
-    }
-});
-    
-
-            if (!response.ok) {
-                throw new Error("Could not load claims.");
+            if (!token) {
+                throw new Error("Your login session has expired. Please log in again.");
             }
 
+            const response = await fetch(
+                "https://campusfind-3ggv.onrender.com/api/claims/my",
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
             const data = await response.json();
-const claims = data.claims || [];
+
+            if (!response.ok) {
+                throw new Error(data.message || "Could not load your claims.");
+            }
+
+            const claims = Array.isArray(data)
+                ? data
+                : (data.claims || []);
 
             document.getElementById("claimCount").textContent =
                 claims.length;
@@ -480,28 +515,51 @@ const claims = data.claims || [];
                     <h3>${escapeHTML(claim.item_name || "Item claim")}</h3>
                     <p><strong>Location:</strong> ${escapeHTML(claim.location || "Not specified")}</p>
                     <p><strong>Claim status:</strong> ${escapeHTML(claim.claim_status || "PENDING")}</p>
+                    <p><strong>Claim details:</strong> ${escapeHTML(claim.claim_description || "Not provided")}</p>
                 `
             );
+
         } catch (error) {
-            showLoadError("myClaims", "Unable to load your claims.");
+            console.error("Profile: My claims error:", error);
+
+            showLoadError(
+                "myClaims",
+                error.message || "Unable to load your claims."
+            );
+
             document.getElementById("claimCount").textContent = "—";
         }
+
+        // ----------------------------------------
+        // LOAD CLAIMS RECEIVED BY THIS USER
+        // ----------------------------------------
 
         try {
             const token = sessionStorage.getItem("campusfindToken");
 
-const response = await fetch("https://campusfind-3ggv.onrender.com/api/claims/received", {
-    headers: {
-        "Authorization": `Bearer ${token}`
-    }
-});
-
-            if (!response.ok) {
-                throw new Error("Could not load received claims.");
+            if (!token) {
+                throw new Error("Your login session has expired. Please log in again.");
             }
 
+            const response = await fetch(
+                `https://campusfind-3ggv.onrender.com/api/claims/received/${encodeURIComponent(userId)}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
             const data = await response.json();
-const claims = data.claims || [];
+
+            if (!response.ok) {
+                throw new Error(data.message || "Could not load received claims.");
+            }
+
+            const claims = Array.isArray(data)
+                ? data
+                : (data.claims || []);
 
             document.getElementById("receivedCount").textContent =
                 claims.length;
@@ -514,19 +572,34 @@ const claims = data.claims || [];
                     <h3>${escapeHTML(claim.item_name || "Item claim")}</h3>
                     <p><strong>Claimant:</strong> ${escapeHTML(claim.claimant_name || "Student")}</p>
                     <p><strong>Claim status:</strong> ${escapeHTML(claim.claim_status || "PENDING")}</p>
+                    <p><strong>Claim details:</strong> ${escapeHTML(claim.claim_description || "Not provided")}</p>
                 `
             );
+
         } catch (error) {
+            console.error("Profile: Received claims error:", error);
+
             showLoadError(
                 "receivedClaims",
-                "Unable to load claims received. Please check your backend."
+                error.message || "Unable to load claims received."
             );
+
             document.getElementById("receivedCount").textContent = "—";
         }
     }
 
+    // ========================================
+    // RENDER ACTIVITY LISTS
+    // ========================================
+
     function renderList(containerId, records, emptyText, getContent) {
         const container = document.getElementById(containerId);
+
+        if (!container) {
+            console.error("Missing profile container:", containerId);
+            return;
+        }
+
         container.replaceChildren();
 
         if (!Array.isArray(records) || records.length === 0) {
@@ -545,8 +618,18 @@ const claims = data.claims || [];
         });
     }
 
+    // ========================================
+    // DISPLAY LOADING ERRORS
+    // ========================================
+
     function showLoadError(containerId, message) {
         const container = document.getElementById(containerId);
+
+        if (!container) {
+            console.error("Missing profile container:", containerId);
+            return;
+        }
+
         container.replaceChildren();
 
         const paragraph = document.createElement("p");
@@ -554,6 +637,10 @@ const claims = data.claims || [];
         paragraph.textContent = message;
         container.appendChild(paragraph);
     }
+
+    // ========================================
+    // ESCAPE HTML CONTENT
+    // ========================================
 
     function escapeHTML(value) {
         return String(value).replace(/[&<>"']/g, character => ({
@@ -565,155 +652,190 @@ const claims = data.claims || [];
         })[character]);
     }
 
-   
-// ========================================
-// EDIT PROFILE FUNCTIONALITY
-// ========================================
+    // ========================================
+    // EDIT PROFILE FUNCTIONALITY
+    // ========================================
 
-const editProfileButton = document.getElementById("editProfileButton");
-const editProfileSection = document.getElementById("editProfileSection");
-const editProfileForm = document.getElementById("editProfileForm");
-const cancelEditButton = document.getElementById("cancelEditButton");
-const editProfileMessage = document.getElementById("editProfileMessage");
+    const editProfileButton =
+        document.getElementById("editProfileButton");
 
-editProfileButton.addEventListener("click", async function () {
-    const savedUser = sessionStorage.getItem("campusfindUser");
-    const user = savedUser ? JSON.parse(savedUser) : null;
+    const editProfileSection =
+        document.getElementById("editProfileSection");
 
-    if (!user) {
-        alert("Please log in again.");
-        window.location.href = "login.html";
-        return;
-    }
+    const editProfileForm =
+        document.getElementById("editProfileForm");
 
-    // Show the current profile information in the form.
-    document.getElementById("editName").value = user.name || "";
-    document.getElementById("editEmail").value = user.email || "";
+    const cancelEditButton =
+        document.getElementById("cancelEditButton");
 
-    // Phone number is fetched from the database because it may not
-    // be included in the existing login response.
-    const token = sessionStorage.getItem("campusfindToken");
+    const editProfileMessage =
+        document.getElementById("editProfileMessage");
 
-    try {
-        const response = await fetch(
-            "https://campusfind-3ggv.onrender.com/api/users/profile",
-            {
-                headers: {
-                    "Authorization": `Bearer ${token}`
+    if (
+        editProfileButton &&
+        editProfileSection &&
+        editProfileForm &&
+        cancelEditButton &&
+        editProfileMessage
+    ) {
+
+        editProfileButton.addEventListener("click", async function () {
+            const savedUser = sessionStorage.getItem("campusfindUser");
+
+            let user;
+
+            try {
+                user = savedUser ? JSON.parse(savedUser) : null;
+            } catch (error) {
+                user = null;
+            }
+
+            if (!user) {
+                alert("Please log in again.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            document.getElementById("editName").value =
+                user.name || "";
+
+            document.getElementById("editEmail").value =
+                user.email || "";
+
+            const token = sessionStorage.getItem("campusfindToken");
+
+            try {
+                const response = await fetch(
+                    "https://campusfind-3ggv.onrender.com/api/users/profile",
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    }
+                );
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    document.getElementById("editPhone").value =
+                        data.user?.phone || "";
+                } else {
+                    document.getElementById("editPhone").value = "";
                 }
+
+            } catch (error) {
+                document.getElementById("editPhone").value = "";
             }
-        );
 
-        if (response.ok) {
-            const data = await response.json();
-            document.getElementById("editPhone").value =
-                data.user.phone || "";
-        } else {
-            document.getElementById("editPhone").value = "";
-        }
-    } catch (error) {
-        document.getElementById("editPhone").value = "";
-    }
+            editProfileMessage.textContent = "";
+            editProfileSection.hidden = false;
 
-    editProfileMessage.textContent = "";
-    editProfileSection.hidden = false;
-    editProfileSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-});
+            editProfileSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        });
 
-cancelEditButton.addEventListener("click", function () {
-    editProfileForm.reset();
-    editProfileMessage.textContent = "";
-    editProfileSection.hidden = true;
-});
-
-editProfileForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-
-    const token = sessionStorage.getItem("campusfindToken");
-
-    if (!token) {
-        alert("Your session has expired. Please log in again.");
-        window.location.href = "login.html";
-        return;
-    }
-
-    const name = document.getElementById("editName").value.trim();
-    const email = document.getElementById("editEmail").value.trim();
-    const phone = document.getElementById("editPhone").value.trim();
-
-    if (!/^[0-9]{10}$/.test(phone)) {
-        editProfileMessage.textContent =
-            "Please enter a valid 10-digit phone number.";
-        return;
-    }
-
-    editProfileMessage.textContent = "Saving changes...";
-
-    try {
-        const response = await fetch(
-            "https://campusfind-3ggv.onrender.com/api/users/profile",
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({ name, email, phone })
-            }
-        );
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            editProfileMessage.textContent =
-                data.message || "Unable to update your profile.";
-            return;
-        }
-
-        // Update the saved session with the new information.
-        const updatedUser = {
-            ...JSON.parse(sessionStorage.getItem("campusfindUser")),
-            ...data.user
-        };
-
-        sessionStorage.setItem(
-            "campusfindUser",
-            JSON.stringify(updatedUser)
-        );
-
-        // Refresh the visible profile details.
-        document.getElementById("profileHeading").textContent =
-            updatedUser.name;
-
-        document.getElementById("profileAvatar").textContent =
-            updatedUser.name.trim().charAt(0).toUpperCase();
-
-        document.getElementById("profileName").textContent =
-            updatedUser.name;
-
-        document.getElementById("profileEmail").textContent =
-            updatedUser.email;
-
-        editProfileMessage.textContent =
-            "Profile updated successfully!";
-
-        setTimeout(() => {
-            editProfileSection.hidden = true;
+        cancelEditButton.addEventListener("click", function () {
             editProfileForm.reset();
-        }, 1500);
+            editProfileMessage.textContent = "";
+            editProfileSection.hidden = true;
+        });
 
-    } catch (error) {
-        console.error("Profile update error:", error);
-        editProfileMessage.textContent =
-            "Cannot connect to the server. Please try again.";
+        editProfileForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const token = sessionStorage.getItem("campusfindToken");
+
+            if (!token) {
+                alert("Your session has expired. Please log in again.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            const name =
+                document.getElementById("editName").value.trim();
+
+            const email =
+                document.getElementById("editEmail").value.trim();
+
+            const phone =
+                document.getElementById("editPhone").value.trim();
+
+            if (!/^[0-9]{10}$/.test(phone)) {
+                editProfileMessage.textContent =
+                    "Please enter a valid 10-digit phone number.";
+                return;
+            }
+
+            editProfileMessage.textContent = "Saving changes...";
+
+            try {
+                const response = await fetch(
+                    "https://campusfind-3ggv.onrender.com/api/users/profile",
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ name, email, phone })
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    editProfileMessage.textContent =
+                        data.message || "Unable to update your profile.";
+                    return;
+                }
+
+                const updatedUser = {
+                    ...JSON.parse(
+                        sessionStorage.getItem("campusfindUser")
+                    ),
+                    ...data.user
+                };
+
+                sessionStorage.setItem(
+                    "campusfindUser",
+                    JSON.stringify(updatedUser)
+                );
+
+                document.getElementById("profileHeading").textContent =
+                    updatedUser.name || "My Profile";
+
+                document.getElementById("profileAvatar").textContent =
+                    (updatedUser.name || "S").trim().charAt(0).toUpperCase();
+
+                document.getElementById("profileName").textContent =
+                    updatedUser.name || "Not available";
+
+                document.getElementById("profileEmail").textContent =
+                    updatedUser.email || "Not available";
+
+                document.getElementById("profileRole").textContent =
+                    updatedUser.role || "Student";
+
+                editProfileMessage.textContent =
+                    "Profile updated successfully!";
+
+                setTimeout(() => {
+                    editProfileSection.hidden = true;
+                    editProfileForm.reset();
+                }, 1500);
+
+            } catch (error) {
+                console.error("Profile update error:", error);
+
+                editProfileMessage.textContent =
+                    "Cannot connect to the server. Please try again.";
+            }
+        });
     }
-});
-
-
 </script>
+
 
 
 </body>
