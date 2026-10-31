@@ -358,6 +358,13 @@ return res.status(200).json({
 // SUBMIT A CLAIM
 app.post("/api/claims", (req, res) => {
     const { item_id, user_id, claim_description } = req.body;
+    
+    console.log("CLAIM DEBUG:", {
+    item_id,
+    user_id,
+    claim_description,
+    body: req.body
+});
 
     if (!item_id || !user_id || !claim_description?.trim()) {
         return res.status(400).json({
