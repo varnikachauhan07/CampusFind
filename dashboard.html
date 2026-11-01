@@ -413,6 +413,7 @@ const savedUser = sessionStorage.getItem("campusfindUser");
 
 
 if (!savedUser) {
+    console.error("No logged-in user found.");
     return;
 }
 
@@ -426,25 +427,20 @@ try {
 }
 
 if (!user.user_id) {
-    document.getElementById("receivedClaimsList").textContent =
-        "Your user ID is missing. Please log in again.";
-
-    document.getElementById("myClaimsList").textContent =
-        "Your user ID is missing. Please log in again.";
-
+    console.error("User ID is missing.");
     return;
 }
 
 await Promise.all([
     loadClaims("my", "myClaimsList"),
-    loadClaims(`received/${encodeURIComponent(user.user_id)}`, "receivedClaimsList", true)
+    loadClaims("received", "receivedClaimsList", true)
 ]);
 
 
 }
 
-
 refreshClaims();
+
 
 
 // ========================================
