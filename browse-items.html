@@ -306,62 +306,86 @@
         }
 
         function createCard(item) {
-            const type = normalize(item.item_type);
-            const category = normalize(item.category) || "other";
-            const location = String(item.location || "Location not specified");
-            const name = String(item.item_name || "Unnamed item");
-            const description = String(
-                item.description || "No description provided."
-            );
+const type = normalize(item.item_type);
+const category = normalize(item.category) || "other";
+const location = String(item.location || "Location not specified");
+const name = String(item.item_name || "Unnamed item");
+const description = String(
+item.description || "No description provided."
+);
 
-            const safeType = type === "found" ? "found" : "lost";
-            const icon = categoryIcons[category] || "📦";
 
-            const card = makeElement("article", "item-card");
-            card.dataset.type = safeType;
-            card.dataset.category = category;
-            card.dataset.location = normalize(location);
+const safeType = type === "found" ? "found" : "lost";
+const icon = categoryIcons[category] || "📦";
+const itemStatus = normalize(item.status);
 
-            const image = makeElement(
-                "div",
-                `item-image ${category}`,
-                icon
-            );
+const card = makeElement("article", "item-card");
 
-            const content = makeElement("div", "item-content");
-            const top = makeElement("div", "item-top");
+card.dataset.type = safeType;
+card.dataset.category = category;
+card.dataset.location = normalize(location);
 
-            const status = makeElement(
-                "span",
-                `item-status ${safeType}`,
-                safeType === "found" ? "Found" : "Lost"
-            );
+const image = makeElement(
+    "div",
+    `item-image ${category}`,
+    icon
+);
 
-            const date = makeElement(
+const content = makeElement("div", "item-content");
+const top = makeElement("div", "item-top");
+
+const typeBadge = makeElement(
+    "span",
+    `item-status ${safeType}`,
+    safeType === "found" ? "Found" : "Lost"
+);
+
+const statusLabels = {
+    active: "Available",
+    claimed: "Claimed",
+    returned: "Returned"
+};
+
+const availabilityBadge = makeElement(
+    "span",
+    "item-status",
+    statusLabels[itemStatus] || "Status unavailable"
+);
+
+availabilityBadge.style.background =
+    itemStatus === "claimed" ? "#fff0d6" :
+    itemStatus === "returned" ? "#e1f3e5" :
+    "#e8f1ff";
+
+availabilityBadge.style.color =
+    itemStatus === "claimed" ? "#946200" :
+    itemStatus === "returned" ? "#26733b" :
+    "#24558a";
+
+const date = makeElement(
     "span",
     "item-date",
     item.created_at
         ? `Reported: ${getDate(item.created_at)?.toLocaleDateString("en-IN") || "Date unavailable"}`
         : "Date unavailable"
-); 
+);
 
-            top.append(status, date);
+top.append(typeBadge, availabilityBadge, date);
 
-            const heading = makeElement("h3", "", name);
-            const desc = makeElement("p", "item-description", description);
-            const meta = makeElement("div", "item-meta");
+const heading = makeElement("h3", "", name);
+const desc = makeElement("p", "item-description", description);
+const meta = makeElement("div", "item-meta");
 
-            meta.append(
-                makeElement("span", "", `📍 ${location}`),
-                makeElement("span", "", `${icon} ${category}`)
-            );
+meta.append(
+    makeElement("span", "", `📍 ${location}`),
+    makeElement("span", "", `${icon} ${category}`)
+);
 
-            const link = makeElement("a", "view-item", "View Details →");
-            link.href = `item-details.html?id=${encodeURIComponent(item.item_id)}`;
+const link = makeElement("a", "view-item", "View Details →");
+link.href = `item-details.html?id=${encodeURIComponent(item.item_id)}`;
 
-           content.append(top, heading, desc, meta, link);
+content.append(top, heading, desc, meta, link);
 
-// Add a claim button only to found items that are still available.
 const loggedInUser = JSON.parse(
     sessionStorage.getItem("campusfindUser") || "null"
 );
@@ -370,7 +394,12 @@ const isOwnItem =
     loggedInUser &&
     Number(loggedInUser.user_id) === Number(item.user_id);
 
-if (!isOwnItem && normalize(item.status) === "active") {
+// Only available found items can be claimed.
+if (
+    safeType === "found" &&
+    itemStatus === "active" &&
+    !isOwnItem
+) {
     const claimButton = makeElement(
         "button",
         "claim-item-btn",
@@ -383,13 +412,15 @@ if (!isOwnItem && normalize(item.status) === "active") {
         openClaimForm(item);
     });
 
-    
     content.appendChild(claimButton);
 }
-            card.append(image, content);
 
-            return card;
-        }
+card.append(image, content);
+
+return card;
+
+
+}
 
 
 function openClaimForm(item) {
@@ -709,6 +740,19 @@ async function submitClaim(itemId, userId, description) {
 
         loadItems();
     });
+
+    // Refresh items when the user returns to this page
+window.addEventListener("focus", loadItems);
+
+window.addEventListener("pageshow", loadItems);
+
+// Refresh items every 15 seconds
+setInterval(() => {
+    if (!document.hidden) {
+        loadItems();
+    }
+}, 15000);
+
     </script>
 
     <script>

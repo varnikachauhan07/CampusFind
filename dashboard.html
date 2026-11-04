@@ -7,7 +7,7 @@
     <title>Dashboard | CampusFind</title>
     <link rel="stylesheet" href="css/style.css">
 
-```
+
 <style>
     .dashboard-container {
         max-width: 1100px;
@@ -219,11 +219,13 @@ async function loadClaims(endpoint, containerId, received = false) {
         const response = await fetch(
             `https://campusfind-3ggv.onrender.com/api/claims/${endpoint}`,
             {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            }
+    method: "GET",
+    cache: "no-store",
+    headers: {
+        "Authorization": `Bearer ${token}`,
+        "Cache-Control": "no-cache"
+    }
+}
         );
 
         const data = await response.json();
@@ -373,75 +375,109 @@ async function reviewClaim(claimId, status) {
 // ========================================
 
 async function confirmHandover(claimId) {
-    const token = sessionStorage.getItem("campusfindToken");
+const token = sessionStorage.getItem("campusfindToken");
 
-    if (!confirm("Have you received or handed over this item?")) {
-        return;
-    }
 
-    try {
-        const response = await fetch(
-            `https://campusfind-3ggv.onrender.com/api/claims/${claimId}/confirm-handover`,
-            {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            }
-        );
-
-        const data = await response.json();
-        alert(data.message || "Request completed.");
-
-        if (response.ok) {
-            await refreshClaims();
-        }
-
-    } catch (error) {
-        console.error("Handover confirmation error:", error);
-        alert("Could not connect to the server.");
-    }
+if (!token) {
+    alert("Your login session has expired. Please log in again.");
+    return;
 }
 
+if (!confirm("Have you received or handed over this item?")) {
+    return;
+}
+
+try {
+    console.log("Confirming handover for claim ID:", claimId);
+
+    const response = await fetch(
+        `https://campusfind-3ggv.onrender.com/api/claims/${claimId}/confirm-handover`,
+        {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            cache: "no-store"
+        }
+    );
+
+    const data = await response.json();
+
+    console.log("Handover response status:", response.status);
+    console.log("Handover response data:", data);
+
+    alert(data.message || "Request completed.");
+
+    if (response.ok) {
+        await refreshClaims();
+    }
+
+} catch (error) {
+    console.error("Handover confirmation error:", error);
+    alert("Could not connect to the server.");
+}
+
+
+}
 
 // ========================================
 // REFRESH BOTH CLAIM LISTS
 // ========================================
 
+let claimsRefreshInProgress = false;
+
 async function refreshClaims() {
-const savedUser = sessionStorage.getItem("campusfindUser");
 
+    if (claimsRefreshInProgress) return;
 
-if (!savedUser) {
-    console.error("No logged-in user found.");
-    return;
+    const savedUser = sessionStorage.getItem("campusfindUser");
+
+    if (!savedUser || !sessionStorage.getItem("campusfindToken")) {
+        return;
+    }
+
+    claimsRefreshInProgress = true;
+
+    try {
+        await Promise.all([
+            loadClaims("my", "myClaimsList"),
+            loadClaims("received", "receivedClaimsList", true)
+        ]);
+
+    } catch (error) {
+        console.error("Claims refresh error:", error);
+
+    } finally {
+        claimsRefreshInProgress = false;
+    }
 }
 
-let user;
 
-try {
-    user = JSON.parse(savedUser);
-} catch (error) {
-    console.error("Could not read saved user:", error);
-    return;
-}
-
-if (!user.user_id) {
-    console.error("User ID is missing.");
-    return;
-}
-
-await Promise.all([
-    loadClaims("my", "myClaimsList"),
-    loadClaims("received", "receivedClaimsList", true)
-]);
-
-
-}
-
+// Load claims when dashboard opens
 refreshClaims();
 
 
+// Refresh when user returns to dashboard
+window.addEventListener("focus", refreshClaims);
+
+window.addEventListener("pageshow", refreshClaims);
+
+
+// Refresh when browser tab becomes visible
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+        refreshClaims();
+    }
+});
+
+
+// Automatically refresh every 15 seconds
+setInterval(() => {
+    if (!document.hidden) {
+        refreshClaims();
+    }
+}, 15000);
 
 // ========================================
 // LOAD PRIVATE CONTACT DETAILS
