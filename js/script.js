@@ -1,239 +1,176 @@
 /* =====================================================
-   CAMPUSFIND
-   BASIC FRONTEND INTERACTIONS
-   ===================================================== */
+CAMPUSFIND - FRONTEND INTERACTIONS
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
 
 
-/* ================= HERO BUTTONS ================= */
+// ================= HERO BUTTONS =================
 
-const reportItemBtn =
-    document.getElementById("reportItemBtn");
+const reportItemBtn = document.getElementById("reportItemBtn");
+const browseBtn = document.getElementById("browseBtn");
 
-const browseBtn =
-    document.getElementById("browseBtn");
+const reportModal = document.getElementById("reportModal");
+const closeReportModal = document.getElementById("closeReportModal");
+const cancelReportModal = document.getElementById("cancelReportModal");
+const reportModalOverlay = document.getElementById("reportModalOverlay");
 
-
-reportItemBtn.addEventListener("click", function () {
-
-
-});
-
-
-browseBtn.addEventListener("click", function () {
-
-    document.getElementById("browse").scrollIntoView({
-        behavior: "smooth"
+// Open Report Item popup
+if (reportItemBtn && reportModal) {
+    reportItemBtn.addEventListener("click", function () {
+        reportModal.classList.add("show");
     });
+}
 
+// Close Report Item popup
+function closeReportPopup() {
+    if (reportModal) {
+        reportModal.classList.remove("show");
+    }
+}
+
+if (closeReportModal) {
+    closeReportModal.addEventListener("click", closeReportPopup);
+}
+
+if (cancelReportModal) {
+    cancelReportModal.addEventListener("click", closeReportPopup);
+}
+
+if (reportModalOverlay) {
+    reportModalOverlay.addEventListener("click", closeReportPopup);
+}
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        closeReportPopup();
+    }
 });
 
 
+// ================= BROWSE BUTTON =================
 
-/* ================= NAV BUTTONS ================= */
+if (browseBtn) {
+    browseBtn.addEventListener("click", function () {
+        const browseSection = document.getElementById("browse");
 
-const loginBtn =
-    document.querySelector(".login-btn");
-
-const registerBtn =
-    document.querySelector(".register-btn");
-
-
-loginBtn.addEventListener("click", function () {
-
-});
-
-
-registerBtn.addEventListener("click", function () {
-
-
-});
+        if (browseSection) {
+            browseSection.scrollIntoView({
+                behavior: "smooth"
+            });
+        } else {
+            window.location.href = "browse-items.html";
+        }
+    });
+}
 
 
+// ================= QUICK ACTION CARDS =================
 
-/* ================= SEARCH ================= */
-
-const searchIcon =
-    document.querySelector(".search-icon");
-
-
-searchIcon.addEventListener("click", function () {
-
-    alert("Search feature will be available soon.");
-
-});
-
-
-
-/* ================= QUICK ACTION CARDS ================= */
-
-const actionCards =
-    document.querySelectorAll(".action-card");
-
-
-actionCards.forEach(function (card) {
+document.querySelectorAll(".action-card").forEach(function (card) {
 
     card.addEventListener("click", function () {
 
-        const title =
-            card.querySelector("h3").textContent;
+        const title = card.querySelector("h3")?.textContent.trim();
 
-    });
+        if (title === "Browse Items") {
+            window.location.href = "browse-items.html";
+        }
 
-});
+        else if (title === "Report Lost Item") {
+            window.location.href = "reportitem.html";
+        }
 
+        else if (title === "Report Found Item") {
+            window.location.href = "reportfound.html";
+        }
 
-
-/* ================= LEARN MORE ================= */
-
-const learnMoreBtn =
-    document.querySelector(".outline-btn");
-
-
-learnMoreBtn.addEventListener("click", function () {
-
-    document.getElementById("how-it-works").scrollIntoView({
-        behavior: "smooth"
-    });
-
-});
-
-
-
-/* ================= NAV ACTIVE STATE ================= */
-
-const navLinks =
-    document.querySelectorAll(".nav-links a");
-
-
-navLinks.forEach(function (link) {
-
-    link.addEventListener("click", function () {
-
-        navLinks.forEach(function (item) {
-
-            item.classList.remove("active");
-
-        });
-
-        this.classList.add("active");
-
-    });
-
-});
-
-// =========================================
-// REPORT ITEM POPUP
-// =========================================
-
-const reportitemBtn =
-    document.getElementById("reportItemBtn");
-
-const reportModal =
-    document.getElementById("reportModal");
-
-const closeReportModal =
-    document.getElementById("closeReportModal");
-
-const cancelReportModal =
-    document.getElementById("cancelReportModal");
-
-const reportModalOverlay =
-    document.getElementById("reportModalOverlay");
-
-
-// Open popup
-if (reportItemBtn && reportModal) {
-
-    reportItemBtn.addEventListener("click", function () {
-
-        reportModal.classList.add("show");
-
-    });
-
-
-    // Close popup function
-    function closeReportPopup() {
-
-        reportModal.classList.remove("show");
-
-    }
-
-
-    // Close using X
-    if (closeReportModal) {
-
-        closeReportModal.addEventListener(
-            "click",
-            closeReportPopup
-        );
-
-    }
-
-
-    // Close using Cancel
-    if (cancelReportModal) {
-
-        cancelReportModal.addEventListener(
-            "click",
-            closeReportPopup
-        );
-
-    }
-
-
-    // Close by clicking outside the popup
-    if (reportModalOverlay) {
-
-        reportModalOverlay.addEventListener(
-            "click",
-            closeReportPopup
-        );
-
-    }
-
-
-    // Close using Escape key
-    document.addEventListener("keydown", function (event) {
-
-        if (event.key === "Escape") {
-
-            closeReportPopup();
-
+        else if (title === "Admin Login") {
+            window.location.href = "admin-login.html";
         }
 
     });
 
+});
+
+
+// ================= LEARN MORE =================
+
+const learnMoreBtn = document.querySelector(".outline-btn");
+
+if (learnMoreBtn) {
+    learnMoreBtn.addEventListener("click", function () {
+        document.getElementById("how-it-works")?.scrollIntoView({
+            behavior: "smooth"
+        });
+    });
 }
 
-// Update navbar according to login status
-document.addEventListener("DOMContentLoaded", function () {
+
+// ================= SEARCH =================
+
+const searchIcon = document.querySelector(".search-icon");
+
+if (searchIcon) {
+    searchIcon.addEventListener("click", function () {
+        window.location.href = "browse-items.html";
+    });
+}
+
+
+// ================= NAV ACTIVE STATE =================
+
+const navLinks = document.querySelectorAll(".nav-links a");
+
+navLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+
+        navLinks.forEach(function (item) {
+            item.classList.remove("active");
+        });
+
+        this.classList.add("active");
+    });
+});
+
+
+// ================= NAVBAR LOGIN STATUS =================
+
 const loginNav = document.getElementById("loginNav");
 const registerNav = document.getElementById("registerNav");
 const profileNav = document.getElementById("profileNav");
 const logoutNav = document.getElementById("logoutNav");
 
 function updateNavbar() {
-    const savedUser = sessionStorage.getItem("campusfindUser");
+
     let user = null;
 
     try {
-        user = savedUser ? JSON.parse(savedUser) : null;
+        user = JSON.parse(
+            sessionStorage.getItem("campusfindUser")
+        );
     } catch (error) {
         user = null;
     }
 
     const isLoggedIn = Boolean(user && user.user_id);
 
-    loginNav.style.display = isLoggedIn ? "none" : "";
-    registerNav.style.display = isLoggedIn ? "none" : "";
-    profileNav.style.display = isLoggedIn ? "" : "none";
-    logoutNav.style.display = isLoggedIn ? "" : "none";
+    if (loginNav) loginNav.style.display = isLoggedIn ? "none" : "";
+    if (registerNav) registerNav.style.display = isLoggedIn ? "none" : "";
+    if (profileNav) profileNav.style.display = isLoggedIn ? "" : "none";
+    if (logoutNav) logoutNav.style.display = isLoggedIn ? "" : "none";
 }
 
-logoutNav.addEventListener("click", function () {
-    sessionStorage.removeItem("campusfindUser");
-    window.location.href = "index.html";
-});
+if (logoutNav) {
+    logoutNav.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        sessionStorage.removeItem("campusfindUser");
+        sessionStorage.removeItem("campusfindToken");
+
+        window.location.href = "index.html";
+    });
+}
 
 updateNavbar();
 

@@ -305,6 +305,140 @@
             return true;
         }
 
+
+        // ========================================
+// ITEM DETAILS POPUP
+// ========================================
+
+function openItemDetails(item) {
+
+    const existingModal = document.getElementById("itemDetailsModal");
+
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    const modal = document.createElement("div");
+    modal.id = "itemDetailsModal";
+    modal.className = "details-modal";
+
+    const overlay = makeElement("div", "details-overlay");
+
+    const box = makeElement("div", "details-box");
+
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-modal", "true");
+
+    const closeButton = makeElement("button", "details-close", "×");
+    closeButton.type = "button";
+    closeButton.setAttribute("aria-label", "Close details");
+
+    const heading = makeElement(
+        "h2",
+        "details-title",
+        item.item_name || "Unnamed Item"
+    );
+
+    const type = normalize(item.item_type);
+    const status = normalize(item.status);
+
+    const typeBadge = makeElement(
+        "span",
+        `details-badge ${type === "found" ? "found" : "lost"}`,
+        type === "found" ? "Found Item" : "Lost Item"
+    );
+
+    const statusLabels = {
+        active: "Available",
+        claimed: "Claimed",
+        returned: "Returned"
+    };
+
+    const statusBadge = makeElement(
+        "span",
+        "details-status",
+        statusLabels[status] || "Status unavailable"
+    );
+
+    const badges = makeElement("div", "details-badges");
+    badges.append(typeBadge, statusBadge);
+
+    const information = makeElement("div", "details-information");
+
+    const dateValue = item.item_date || item.created_at;
+    const parsedDate = getDate(dateValue);
+
+    const formattedDate = parsedDate
+        ? parsedDate.toLocaleDateString("en-IN")
+        : "Date unavailable";
+
+    const details = [
+        ["Category", item.category || "Other"],
+        ["Location", item.location || "Not specified"],
+        ["Date Reported", formattedDate]
+    ];
+
+    details.forEach(([label, value]) => {
+
+        const row = makeElement("div", "details-row");
+
+        row.append(
+            makeElement("strong", "", label),
+            makeElement("span", "", String(value))
+        );
+
+        information.appendChild(row);
+    });
+
+    const descriptionHeading = makeElement(
+        "h3",
+        "details-section-heading",
+        "Description"
+    );
+
+    const description = makeElement(
+        "p",
+        "details-description",
+        item.description || "No description provided."
+    );
+
+    box.append(
+        closeButton,
+        heading,
+        badges,
+        information,
+        descriptionHeading,
+        description
+    );
+
+    overlay.appendChild(box);
+    modal.appendChild(overlay);
+
+    document.body.appendChild(modal);
+
+    function closeDetails() {
+        modal.remove();
+        document.removeEventListener("keydown", handleEscape);
+    }
+
+    function handleEscape(event) {
+        if (event.key === "Escape") {
+            closeDetails();
+        }
+    }
+
+    closeButton.addEventListener("click", closeDetails);
+
+    overlay.addEventListener("click", function(event) {
+        if (event.target === overlay) {
+            closeDetails();
+        }
+    });
+
+    document.addEventListener("keydown", handleEscape);
+
+    closeButton.focus();
+}
         function createCard(item) {
 const type = normalize(item.item_type);
 const category = normalize(item.category) || "other";
@@ -362,29 +496,21 @@ availabilityBadge.style.color =
     itemStatus === "returned" ? "#26733b" :
     "#24558a";
 
-const date = makeElement(
-    "span",
-    "item-date",
-    item.created_at
-        ? `Reported: ${getDate(item.created_at)?.toLocaleDateString("en-IN") || "Date unavailable"}`
-        : "Date unavailable"
-);
-
-top.append(typeBadge, availabilityBadge, date);
+// Minimal item card
+top.append(typeBadge, availabilityBadge);
 
 const heading = makeElement("h3", "", name);
-const desc = makeElement("p", "item-description", description);
-const meta = makeElement("div", "item-meta");
 
-meta.append(
-    makeElement("span", "", `📍 ${location}`),
-    makeElement("span", "", `${icon} ${category}`)
-);
+// View Details button
+const link = makeElement("button", "view-item", "View Details →");
 
-const link = makeElement("a", "view-item", "View Details →");
-link.href = `item-details.html?id=${encodeURIComponent(item.item_id)}`;
+link.type = "button";
 
-content.append(top, heading, desc, meta, link);
+link.addEventListener("click", () => {
+    openItemDetails(item);
+});
+
+content.append(top, heading, link);
 
 const loggedInUser = JSON.parse(
     sessionStorage.getItem("campusfindUser") || "null"
